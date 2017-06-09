@@ -19,7 +19,7 @@ To use this library, you need to define your project specific config's POJO in w
 _**ServiceSetting.java**_
 ```java
 public class ServiceSetting {
-	private int		port;
+	private int	port;
 	private String	type;
 	private String	url;
 
