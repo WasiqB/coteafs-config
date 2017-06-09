@@ -19,7 +19,7 @@ package com.github.wasiqb.coteafs.config.exception;
  * @author wasiq.bhamla
  * @since 04-May-2017 11:19:31 PM
  */
-public class CoteafsConfigFileNotFoundException extends BaseAppiumException {
+public class CoteafsConfigFileNotFoundException extends BaseConfigException {
 	private static final long serialVersionUID = 7619491487630973407L;
 
 	/**

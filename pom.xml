@@ -6,7 +6,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<description>YAML based config file parser.</description>
 	<name>${project.groupId}:${project.artifactId}</name>
-	<url>https://github.com/WasiqB/coteafs-appium</url>
+	<url>https://github.com/WasiqB/coteafs-config</url>
 	<inceptionYear>2017</inceptionYear>
 
 	<organization>
@@ -36,19 +36,19 @@
 	</developers>
 
 	<scm>
-		<connection>scm:git:https://github.com/WasiqB/coteafs-appium.git</connection>
-		<developerConnection>scm:git:https://github.com/WasiqB/coteafs-appium.git</developerConnection>
-		<url>https://github.com/WasiqB/coteafs-appium.git</url>
+		<connection>scm:git:https://github.com/WasiqB/coteafs-config.git</connection>
+		<developerConnection>scm:git:https://github.com/WasiqB/coteafs-config.git</developerConnection>
+		<url>https://github.com/WasiqB/coteafs-config.git</url>
 	</scm>
 
 	<issueManagement>
 		<system>GitHub</system>
-		<url>https://github.com/WasiqB/coteafs-appium/issues</url>
+		<url>https://github.com/WasiqB/coteafs-config/issues</url>
 	</issueManagement>
 
 	<ciManagement>
 		<system>travis</system>
-		<url>https://travis-ci.org/WasiqB/coteafs-appium</url>
+		<url>https://travis-ci.org/WasiqB/coteafs-config</url>
 	</ciManagement>
 
 	<repositories>
