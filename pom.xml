@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.wasiqb.coteafs</groupId>
 	<artifactId>configs</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<description>YAML based config file parser.</description>
 	<name>${project.groupId}:${project.artifactId}</name>
 	<url>https://github.com/WasiqB/coteafs-config</url>
