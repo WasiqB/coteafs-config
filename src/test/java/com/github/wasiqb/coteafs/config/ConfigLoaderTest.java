@@ -17,6 +17,10 @@ package com.github.wasiqb.coteafs.config;
 
 import static com.google.common.truth.Truth.assertThat;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Modifier;
+
 import org.testng.annotations.Test;
 
 import com.github.wasiqb.coteafs.config.constants.Constants;
@@ -31,14 +35,36 @@ import com.github.wasiqb.coteafs.config.loader.ConfigLoader;
 public class ConfigLoaderTest {
 	/**
 	 * @author wasiq.bhamla
+	 * @since 28-Jun-2017 4:05:51 PM
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 * @throws SecurityException
+	 * @throws NoSuchMethodException
+	 * @throws InvocationTargetException
+	 * @throws IllegalArgumentException
+	 */
+	@Test
+	public void testConfigLoaderInitialization () throws InstantiationException, IllegalAccessException,
+			NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException {
+		final Class <ConfigLoader> clazz = ConfigLoader.class;
+		final Constructor <ConfigLoader> constructor = clazz.getDeclaredConstructor ();
+		assertThat (Modifier.isPrivate (constructor.getModifiers ()))	.named ("ctor modifier")
+																		.isTrue ();
+		constructor.setAccessible (true);
+		constructor.newInstance ();
+		constructor.setAccessible (false);
+	}
+
+	/**
+	 * @author wasiq.bhamla
 	 * @since 09-Jun-2017 6:44:40 PM
 	 */
 	@Test (alwaysRun = true)
 	public void testConfigLoaderWithServiceSettings () {
 		final ServiceSetting setting = ConfigLoader.settings (ServiceSetting.class);
-		assertThat (setting.getUrl ()).isEqualTo ("http://localhost");
-		assertThat (setting.getPort ()).isEqualTo (8080);
-		assertThat (setting.getType ()).isEqualTo ("SOAP");
+		assertThat (setting.getApiUrl ()).isEqualTo ("http://localhost");
+		assertThat (setting.getApiPort ()).isEqualTo (8080);
+		assertThat (setting.getApiType ()).isEqualTo ("SOAP");
 	}
 
 	/**

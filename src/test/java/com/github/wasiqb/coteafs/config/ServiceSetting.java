@@ -20,64 +20,64 @@ package com.github.wasiqb.coteafs.config;
  * @since 09-Jun-2017 6:40:36 PM
  */
 public class ServiceSetting {
-	private int		port;
-	private String	type;
-	private String	url;
+	private int		apiPort;
+	private String	apiType;
+	private String	apiUrl;
 
 	/**
 	 * @author wasiq.bhamla
-	 * @since 09-Jun-2017 6:41:17 PM
-	 * @return the port
+	 * @since 27-Jun-2017 7:15:29 PM
+	 * @return the apiPort
 	 */
-	public int getPort () {
-		return this.port;
+	public int getApiPort () {
+		return this.apiPort;
 	}
 
 	/**
 	 * @author wasiq.bhamla
-	 * @since 09-Jun-2017 6:41:17 PM
-	 * @return the type
+	 * @since 27-Jun-2017 7:15:29 PM
+	 * @return the apiType
 	 */
-	public String getType () {
-		return this.type;
+	public String getApiType () {
+		return this.apiType;
 	}
 
 	/**
 	 * @author wasiq.bhamla
-	 * @since 09-Jun-2017 6:41:17 PM
-	 * @return the url
+	 * @since 27-Jun-2017 7:15:29 PM
+	 * @return the apiUrl
 	 */
-	public String getUrl () {
-		return this.url;
+	public String getApiUrl () {
+		return this.apiUrl;
 	}
 
 	/**
 	 * @author wasiq.bhamla
-	 * @since 09-Jun-2017 6:41:17 PM
-	 * @param port
-	 *            the port to set
+	 * @since 27-Jun-2017 7:15:29 PM
+	 * @param apiPort
+	 *            the apiPort to set
 	 */
-	public void setPort (final int port) {
-		this.port = port;
+	public void setApiPort (final int apiPort) {
+		this.apiPort = apiPort;
 	}
 
 	/**
 	 * @author wasiq.bhamla
-	 * @since 09-Jun-2017 6:41:17 PM
-	 * @param type
-	 *            the type to set
+	 * @since 27-Jun-2017 7:15:29 PM
+	 * @param apiType
+	 *            the apiType to set
 	 */
-	public void setType (final String type) {
-		this.type = type;
+	public void setApiType (final String apiType) {
+		this.apiType = apiType;
 	}
 
 	/**
 	 * @author wasiq.bhamla
-	 * @since 09-Jun-2017 6:41:17 PM
-	 * @param url
-	 *            the url to set
+	 * @since 27-Jun-2017 7:15:29 PM
+	 * @param apiUrl
+	 *            the apiUrl to set
 	 */
-	public void setUrl (final String url) {
-		this.url = url;
+	public void setApiUrl (final String apiUrl) {
+		this.apiUrl = apiUrl;
 	}
 }

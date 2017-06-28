@@ -37,7 +37,7 @@ import com.google.common.base.CaseFormat;
  * @author wasiq.bhamla
  * @since 09-Jun-2017 4:36:27 PM
  */
-public final class ConfigLoader {
+public class ConfigLoader {
 	private static final Logger log;
 
 	static {
@@ -52,8 +52,7 @@ public final class ConfigLoader {
 	 */
 	public static <T> T settings (final Class <T> cls) {
 		log.trace ("Loading settings from Config file...");
-		final T settings = loadSettings (cls);
-		return settings;
+		return loadSettings (cls);
 	}
 
 	/**
@@ -97,5 +96,13 @@ public final class ConfigLoader {
 		}
 		log.trace ("coteafs settings loaded successfully...");
 		return result;
+	}
+
+	/**
+	 * @author wasiq.bhamla
+	 * @since 27-Jun-2017 7:22:17 PM
+	 */
+	private ConfigLoader () {
+		// Utility class.
 	}
 }
