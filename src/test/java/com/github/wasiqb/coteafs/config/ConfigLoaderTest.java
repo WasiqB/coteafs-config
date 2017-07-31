@@ -17,15 +17,10 @@ package com.github.wasiqb.coteafs.config;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Modifier;
-
 import org.testng.annotations.Test;
 
-import com.github.wasiqb.coteafs.config.constants.Constants;
-import com.github.wasiqb.coteafs.config.exception.CoteafsConfigFileNotFoundException;
-import com.github.wasiqb.coteafs.config.exception.CoteafsConfigNotLoadedException;
+import com.github.wasiqb.coteafs.config.error.CoteafsConfigFileNotFoundError;
+import com.github.wasiqb.coteafs.config.error.CoteafsConfigNotLoadedError;
 import com.github.wasiqb.coteafs.config.loader.ConfigLoader;
 
 /**
@@ -35,33 +30,12 @@ import com.github.wasiqb.coteafs.config.loader.ConfigLoader;
 public class ConfigLoaderTest {
 	/**
 	 * @author wasiq.bhamla
-	 * @since 28-Jun-2017 4:05:51 PM
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
-	 * @throws SecurityException
-	 * @throws NoSuchMethodException
-	 * @throws InvocationTargetException
-	 * @throws IllegalArgumentException
-	 */
-	@Test
-	public void testConfigLoaderInitialization () throws InstantiationException, IllegalAccessException,
-			NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException {
-		final Class <ConfigLoader> clazz = ConfigLoader.class;
-		final Constructor <ConfigLoader> constructor = clazz.getDeclaredConstructor ();
-		assertThat (Modifier.isPrivate (constructor.getModifiers ()))	.named ("ctor modifier")
-																		.isTrue ();
-		constructor.setAccessible (true);
-		constructor.newInstance ();
-		constructor.setAccessible (false);
-	}
-
-	/**
-	 * @author wasiq.bhamla
 	 * @since 09-Jun-2017 6:44:40 PM
 	 */
-	@Test (alwaysRun = true)
+	@Test
 	public void testConfigLoaderWithServiceSettings () {
-		final ServiceSetting setting = ConfigLoader.settings (ServiceSetting.class);
+		final ServiceSetting setting = ConfigLoader	.settings ()
+													.load (ServiceSetting.class);
 		assertThat (setting.getApiUrl ()).isEqualTo ("http://localhost");
 		assertThat (setting.getApiPort ()).isEqualTo (8080);
 		assertThat (setting.getApiType ()).isEqualTo ("SOAP");
@@ -71,19 +45,22 @@ public class ConfigLoaderTest {
 	 * @author wasiq.bhamla
 	 * @since 09-Jun-2017 6:48:05 PM
 	 */
-	@Test (expectedExceptions = CoteafsConfigNotLoadedException.class)
+	@Test (expectedExceptions = CoteafsConfigNotLoadedError.class)
 	public void testConfigWhenFileIsIncorrect () {
-		System.setProperty (Constants.CONFIG_KEY, "test-config-malformed.yaml");
-		ConfigLoader.settings (ServiceSetting.class);
+		ConfigLoader.settings ()
+					.withKey ("coteafs.failed.setting")
+					.withDefault ("test-config-malformed.yaml")
+					.load (ServiceSetting.class);
 	}
 
 	/**
 	 * @author wasiq.bhamla
 	 * @since 09-Jun-2017 6:47:13 PM
 	 */
-	@Test (expectedExceptions = CoteafsConfigFileNotFoundException.class)
+	@Test (expectedExceptions = CoteafsConfigFileNotFoundError.class)
 	public void testConfigWhenFileNotExsits () {
-		System.setProperty (Constants.CONFIG_KEY, "config.yaml");
-		ConfigLoader.settings (ServiceSetting.class);
+		ConfigLoader.settings ()
+					.withDefault ("config.yaml")
+					.load (ServiceSetting.class);
 	}
 }

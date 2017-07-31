@@ -13,31 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.wasiqb.coteafs.config.exception;
+package com.github.wasiqb.coteafs.config.error;
+
+import com.github.wasiqb.coteafs.error.CoteafsError;
 
 /**
  * @author wasiq.bhamla
- * @since 04-May-2017 4:22:59 PM
+ * @since 04-May-2017 11:22:34 PM
  */
-public class BaseConfigException extends AssertionError {
-	private static final long serialVersionUID = -1650843353543598942L;
+public class CoteafsConfigNotLoadedError extends CoteafsError {
+	private static final long serialVersionUID = 3051298544062173848L;
 
 	/**
 	 * @author wasiq.bhamla
-	 * @since 04-May-2017 11:05:28 PM
+	 * @since 04-May-2017 11:22:34 PM
 	 * @param message
 	 */
-	public BaseConfigException (final String message) {
-		super (message, null);
+	public CoteafsConfigNotLoadedError (final String message) {
+		super (message);
 	}
 
 	/**
 	 * @author wasiq.bhamla
-	 * @since 04-May-2017 4:22:59 PM
+	 * @since 04-May-2017 11:22:34 PM
 	 * @param message
 	 * @param cause
 	 */
-	public BaseConfigException (final String message, final Throwable cause) {
+	public CoteafsConfigNotLoadedError (final String message, final Throwable cause) {
 		super (message, cause);
 	}
 }

@@ -13,13 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.wasiqb.coteafs.config.exception;
+package com.github.wasiqb.coteafs.config.error;
+
+import com.github.wasiqb.coteafs.error.CoteafsError;
 
 /**
  * @author wasiq.bhamla
  * @since 04-May-2017 11:19:31 PM
  */
-public class CoteafsConfigFileNotFoundException extends BaseConfigException {
+public class CoteafsConfigFileNotFoundError extends CoteafsError {
 	private static final long serialVersionUID = 7619491487630973407L;
 
 	/**
@@ -27,7 +29,7 @@ public class CoteafsConfigFileNotFoundException extends BaseConfigException {
 	 * @since 04-May-2017 11:19:31 PM
 	 * @param message
 	 */
-	public CoteafsConfigFileNotFoundException (final String message) {
+	public CoteafsConfigFileNotFoundError (final String message) {
 		super (message);
 	}
 
@@ -37,7 +39,7 @@ public class CoteafsConfigFileNotFoundException extends BaseConfigException {
 	 * @param message
 	 * @param cause
 	 */
-	public CoteafsConfigFileNotFoundException (final String message, final Throwable cause) {
+	public CoteafsConfigFileNotFoundError (final String message, final Throwable cause) {
 		super (message, cause);
 	}
 }

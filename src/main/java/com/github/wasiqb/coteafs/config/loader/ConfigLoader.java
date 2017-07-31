@@ -15,22 +15,21 @@
  */
 package com.github.wasiqb.coteafs.config.loader;
 
+import static com.github.wasiqb.coteafs.error.util.ErrorUtil.fail;
+
 import java.beans.IntrospectionException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.URL;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
 import org.yaml.snakeyaml.introspector.Property;
 import org.yaml.snakeyaml.introspector.PropertyUtils;
 
-import com.github.wasiqb.coteafs.config.constants.Constants;
-import com.github.wasiqb.coteafs.config.exception.CoteafsConfigFileNotFoundException;
-import com.github.wasiqb.coteafs.config.exception.CoteafsConfigNotLoadedException;
+import com.github.wasiqb.coteafs.config.error.CoteafsConfigFileNotFoundError;
+import com.github.wasiqb.coteafs.config.error.CoteafsConfigNotLoadedError;
 import com.google.common.base.CaseFormat;
 
 /**
@@ -38,10 +37,25 @@ import com.google.common.base.CaseFormat;
  * @since 09-Jun-2017 4:36:27 PM
  */
 public class ConfigLoader {
-	private static final Logger log;
+	/**
+	 * @author wasiq.bhamla
+	 * @since Jul 29, 2017 7:23:21 PM
+	 * @return instance.
+	 */
+	public static ConfigLoader settings () {
+		return new ConfigLoader ();
+	}
 
-	static {
-		log = LogManager.getLogger (ConfigLoader.class);
+	private String	key;
+	private String	value;
+
+	/**
+	 * @author wasiq.bhamla
+	 * @since 27-Jun-2017 7:22:17 PM
+	 */
+	private ConfigLoader () {
+		this.key = "coteafs.config";
+		this.value = "test-config.yaml";
 	}
 
 	/**
@@ -50,59 +64,69 @@ public class ConfigLoader {
 	 * @param cls
 	 * @return settings
 	 */
-	public static <T> T settings (final Class <T> cls) {
-		log.trace ("Loading settings from Config file...");
+	public <T> T load (final Class <T> cls) {
 		return loadSettings (cls);
+	}
+
+	/**
+	 * @author wasiq.bhamla
+	 * @since Jul 29, 2017 7:20:50 PM
+	 * @param def
+	 * @return instance
+	 */
+	public ConfigLoader withDefault (final String def) {
+		this.value = def;
+		return this;
+	}
+
+	/**
+	 * @author wasiq.bhamla
+	 * @since Jul 29, 2017 7:14:50 PM
+	 * @param configKey
+	 * @return instance
+	 */
+	public ConfigLoader withKey (final String configKey) {
+		this.key = configKey;
+		return this;
 	}
 
 	/**
 	 * @author wasiq.bhamla
 	 * @since 09-Jun-2017 5:00:19 PM
 	 * @param cls
-	 * @return settings
 	 */
 	@SuppressWarnings ("unchecked")
-	private static <T> T loadSettings (final Class <T> cls) {
-		final String path = System.getProperty (Constants.CONFIG_KEY, Constants.DEFAULT_CONFIG_FILE);
+	private <T> T loadSettings (final Class <T> cls) {
+		final String path = System.getProperty (this.key, this.value);
 		final URL url = ConfigLoader.class	.getClassLoader ()
 											.getResource (path);
-		if (url == null) {
-			final String msg = "%s not found.";
-			throw new CoteafsConfigFileNotFoundException (String.format (msg, path));
-		}
-		final File file = new File (url.getPath ());
-		final String msg = "Started Loading coteafs Settings from location [%s]...";
-		log.trace (String.format (msg, path));
-		final Constructor ctor = new Constructor (cls);
-		final PropertyUtils propertyUtils = new PropertyUtils () {
-			@Override
-			public Property getProperty (final Class <? extends Object> type, final String name)
-					throws IntrospectionException {
-				String prop = name;
-				if (prop.indexOf ('_') > -1) {
-					prop = CaseFormat.LOWER_UNDERSCORE.to (CaseFormat.LOWER_CAMEL, prop);
+		if (url != null) {
+			final File file = new File (url.getPath ());
+			final Constructor ctor = new Constructor (cls);
+			final PropertyUtils propertyUtils = new PropertyUtils () {
+				@Override
+				public Property getProperty (final Class <? extends Object> obj, final String name)
+						throws IntrospectionException {
+					String propertyName = name;
+					if (propertyName.indexOf ('_') > -1) {
+						propertyName = CaseFormat.LOWER_UNDERSCORE.to (CaseFormat.LOWER_CAMEL, propertyName);
+					}
+					return super.getProperty (obj, propertyName);
 				}
-				return super.getProperty (type, prop);
+			};
+			ctor.setPropertyUtils (propertyUtils);
+			final Yaml yaml = new Yaml (ctor);
+			T result = null;
+			try (final InputStream in = new FileInputStream (file)) {
+				result = (T) yaml.load (in);
 			}
-		};
-		ctor.setPropertyUtils (propertyUtils);
-		final Yaml yaml = new Yaml (ctor);
-		T result = null;
-		try (final InputStream in = new FileInputStream (file)) {
-			result = (T) yaml.load (in);
+			catch (final Exception e) {
+				fail (CoteafsConfigNotLoadedError.class, "Error loading config file.", e);
+			}
+			return result;
 		}
-		catch (final Exception e) {
-			throw new CoteafsConfigNotLoadedException ("Error loading config file.", e);
-		}
-		log.trace ("coteafs settings loaded successfully...");
-		return result;
-	}
-
-	/**
-	 * @author wasiq.bhamla
-	 * @since 27-Jun-2017 7:22:17 PM
-	 */
-	private ConfigLoader () {
-		// Utility class.
+		final String MSG = "%s not found.";
+		fail (CoteafsConfigFileNotFoundError.class, String.format (MSG, path));
+		return null;
 	}
 }
