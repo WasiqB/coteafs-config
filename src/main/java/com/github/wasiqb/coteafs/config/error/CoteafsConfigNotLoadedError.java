@@ -15,13 +15,11 @@
  */
 package com.github.wasiqb.coteafs.config.error;
 
-import com.github.wasiqb.coteafs.error.CoteafsError;
-
 /**
  * @author wasiq.bhamla
  * @since 04-May-2017 11:22:34 PM
  */
-public class CoteafsConfigNotLoadedError extends CoteafsError {
+public class CoteafsConfigNotLoadedError extends CoteafsConfigsError {
 	private static final long serialVersionUID = 3051298544062173848L;
 
 	/**

@@ -15,29 +15,34 @@
  */
 package com.github.wasiqb.coteafs.config.error;
 
+import com.github.wasiqb.coteafs.error.CoteafsError;
+import com.github.wasiqb.coteafs.error.enums.Category;
+import com.github.wasiqb.coteafs.error.enums.Reason;
+import com.github.wasiqb.coteafs.error.enums.Severity;
+
 /**
  * @author wasiq.bhamla
- * @since 04-May-2017 11:19:31 PM
+ * @since Sep 30, 2017 9:34:52 PM
  */
-public class CoteafsConfigFileNotFoundError extends CoteafsConfigsError {
-	private static final long serialVersionUID = 7619491487630973407L;
+public class CoteafsConfigsError extends CoteafsError {
+	private static final long serialVersionUID = -4728560787414076762L;
 
 	/**
 	 * @author wasiq.bhamla
-	 * @since 04-May-2017 11:19:31 PM
+	 * @since Sep 30, 2017 9:34:53 PM
 	 * @param message
 	 */
-	public CoteafsConfigFileNotFoundError (final String message) {
-		super (message);
+	public CoteafsConfigsError (final String message) {
+		super (message, Reason.R3, Category.C1, Severity.CRITICAL);
 	}
 
 	/**
 	 * @author wasiq.bhamla
-	 * @since 04-May-2017 11:19:31 PM
+	 * @since Sep 30, 2017 9:34:53 PM
 	 * @param message
 	 * @param cause
 	 */
-	public CoteafsConfigFileNotFoundError (final String message, final Throwable cause) {
-		super (message, cause);
+	public CoteafsConfigsError (final String message, final Throwable cause) {
+		super (message, cause, Reason.R3, Category.C1, Severity.CRITICAL);
 	}
 }
