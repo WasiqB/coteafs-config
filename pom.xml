@@ -5,12 +5,12 @@
 	<description>YAML based config file parser.</description>
 	<name>${project.groupId}:${project.artifactId}</name>
 	<url>https://github.com/WasiqB/coteafs-config</url>
-	<version>1.1.0</version>
+	<version>1.2.0</version>
 
 	<parent>
 		<groupId>com.github.wasiqb.coteafs</groupId>
 		<artifactId>parent</artifactId>
-		<version>1.2.0</version>
+		<version>1.3.0</version>
 	</parent>
 
 	<scm>
@@ -28,6 +28,10 @@
 		<system>travis</system>
 		<url>https://travis-ci.org/WasiqB/coteafs-config</url>
 	</ciManagement>
+	
+	<properties>
+		<coteafs.error.version>1.2.0</coteafs.error.version>
+	</properties>
 
 	<dependencies>
 		<dependency>
