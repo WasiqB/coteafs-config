@@ -18,10 +18,7 @@ package com.github.wasiqb.coteafs.config.loader;
 import static com.github.wasiqb.coteafs.error.util.ErrorUtil.fail;
 
 import java.beans.IntrospectionException;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.InputStream;
-import java.net.URL;
 
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
@@ -55,7 +52,7 @@ public class ConfigLoader {
 	 */
 	private ConfigLoader () {
 		this.key = "coteafs.config";
-		this.value = "test-config.yaml";
+		this.value = "/test-config.yaml";
 	}
 
 	/**
@@ -98,32 +95,27 @@ public class ConfigLoader {
 	@SuppressWarnings ("unchecked")
 	private <T> T loadSettings (final Class <T> cls) {
 		final String path = System.getProperty (this.key, this.value);
-		final URL url = ConfigLoader.class	.getClassLoader ()
-											.getResource (path);
-		if (url != null) {
-			final File file = new File (url.getPath ());
-			final Constructor ctor = new Constructor (cls);
-			final PropertyUtils propertyUtils = new PropertyUtils () {
-				@Override
-				public Property getProperty (final Class <? extends Object> obj, final String name)
-						throws IntrospectionException {
-					String propertyName = name;
-					if (propertyName.indexOf ('_') > -1) {
-						propertyName = CaseFormat.LOWER_UNDERSCORE.to (CaseFormat.LOWER_CAMEL, propertyName);
+		try (final InputStream in = getClass ().getResourceAsStream (path)) {
+			if (in != null) {
+				final Constructor ctor = new Constructor (cls);
+				final PropertyUtils propertyUtils = new PropertyUtils () {
+					@Override
+					public Property getProperty (final Class <? extends Object> obj, final String name)
+							throws IntrospectionException {
+						String propertyName = name;
+						if (propertyName.indexOf ('_') > -1) {
+							propertyName = CaseFormat.LOWER_UNDERSCORE.to (CaseFormat.LOWER_CAMEL, propertyName);
+						}
+						return super.getProperty (obj, propertyName);
 					}
-					return super.getProperty (obj, propertyName);
-				}
-			};
-			ctor.setPropertyUtils (propertyUtils);
-			final Yaml yaml = new Yaml (ctor);
-			T result = null;
-			try (final InputStream in = new FileInputStream (file)) {
-				result = (T) yaml.load (in);
+				};
+				ctor.setPropertyUtils (propertyUtils);
+				final Yaml yaml = new Yaml (ctor);
+				return (T) yaml.load (in);
 			}
-			catch (final Exception e) {
-				fail (CoteafsConfigNotLoadedError.class, "Error loading config file.", e);
-			}
-			return result;
+		}
+		catch (final Exception e) {
+			fail (CoteafsConfigNotLoadedError.class, "Error loading config file.", e);
 		}
 		final String MSG = "%s not found.";
 		fail (CoteafsConfigFileNotFoundError.class, String.format (MSG, path));

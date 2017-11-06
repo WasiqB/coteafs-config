@@ -49,7 +49,7 @@ public class ConfigLoaderTest {
 	public void testConfigWhenFileIsIncorrect () {
 		ConfigLoader.settings ()
 					.withKey ("coteafs.failed.setting")
-					.withDefault ("test-config-malformed.yaml")
+					.withDefault ("/test-config-malformed.yaml")
 					.load (ServiceSetting.class);
 	}
 
@@ -60,7 +60,7 @@ public class ConfigLoaderTest {
 	@Test (expectedExceptions = CoteafsConfigFileNotFoundError.class)
 	public void testConfigWhenFileNotExsits () {
 		ConfigLoader.settings ()
-					.withDefault ("config.yaml")
+					.withDefault ("/sconfig.yaml")
 					.load (ServiceSetting.class);
 	}
 }
