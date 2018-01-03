@@ -17,7 +17,6 @@ package com.github.wasiqb.coteafs.config.loader;
 
 import static com.github.wasiqb.coteafs.error.util.ErrorUtil.fail;
 
-import java.beans.IntrospectionException;
 import java.io.InputStream;
 
 import org.yaml.snakeyaml.Yaml;
@@ -100,8 +99,7 @@ public class ConfigLoader {
 				final Constructor ctor = new Constructor (cls);
 				final PropertyUtils propertyUtils = new PropertyUtils () {
 					@Override
-					public Property getProperty (final Class <? extends Object> obj, final String name)
-							throws IntrospectionException {
+					public Property getProperty (final Class <? extends Object> obj, final String name) {
 						String propertyName = name;
 						if (propertyName.indexOf ('_') > -1) {
 							propertyName = CaseFormat.LOWER_UNDERSCORE.to (CaseFormat.LOWER_CAMEL, propertyName);
