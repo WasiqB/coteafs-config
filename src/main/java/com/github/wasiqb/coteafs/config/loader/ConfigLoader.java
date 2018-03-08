@@ -91,7 +91,6 @@ public class ConfigLoader {
 	 * @since 09-Jun-2017 5:00:19 PM
 	 * @param cls
 	 */
-	@SuppressWarnings ("unchecked")
 	private <T> T loadSettings (final Class <T> cls) {
 		final String path = System.getProperty (this.key, this.value);
 		try (final InputStream in = getClass ().getResourceAsStream (path)) {
@@ -109,7 +108,7 @@ public class ConfigLoader {
 				};
 				ctor.setPropertyUtils (propertyUtils);
 				final Yaml yaml = new Yaml (ctor);
-				return (T) yaml.load (in);
+				return yaml.load (in);
 			}
 		}
 		catch (final Exception e) {
