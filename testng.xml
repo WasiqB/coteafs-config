@@ -3,7 +3,7 @@
 <suite name="CoTeAFS Config Suite">
 	<test name="CoTeAFS Config Test">
 		<classes>
-			<class name="com.github.wasiqb.coteafs.config.ConfigFactoryTest" />
+			<class name="com.github.wasiqb.coteafs.config.ConfigLoaderTest" />
 		</classes>
 	</test> <!-- CoTeAFS Config Test -->
 </suite> <!-- CoTeAFS Config Suite -->

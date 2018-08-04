@@ -5,8 +5,8 @@
 	<artifactId>configs</artifactId>
 	<description>YAML based config file parser.</description>
 	<name>${project.groupId}:${project.artifactId}</name>
-	<url>https://gitlab.com/coteafs/config</url>
-	<version>2.0.0-SNAPSHOT</version>
+	<url>https://github.com/WasiqB/coteafs-config</url>
+	<version>1.6.0</version>
 
 	<parent>
 		<groupId>com.github.wasiqb.coteafs</groupId>
@@ -15,23 +15,23 @@
 	</parent>
 
 	<scm>
-		<connection>scm:git:git@gitlab.com:coteafs/config.git</connection>
-		<developerConnection>scm:git:git@gitlab.com:coteafs/config.git</developerConnection>
-		<url>git@gitlab.com:coteafs/config.git</url>
+		<connection>scm:git:git@github.com:WasiqB/coteafs-config.git</connection>
+		<developerConnection>scm:git:git@github.com:WasiqB/coteafs-config.git</developerConnection>
+		<url>git@github.com:WasiqB/coteafs-config.git</url>
 	</scm>
 
 	<issueManagement>
-		<system>GitLab</system>
-		<url>https://gitlab.com/coteafs/config/issues</url>
+		<system>GitHub</system>
+		<url>https://github.com/WasiqB/coteafs-config/issues</url>
 	</issueManagement>
 
 	<ciManagement>
 		<system>GitLab CI</system>
-		<url>https://gitlab.com/coteafs/config/pipelines</url>
+		<url>https://github.com/WasiqB/coteafs-config/pipelines</url>
 	</ciManagement>
 
 	<properties>
-		<coteafs.error.version>1.4.0</coteafs.error.version>
+		<coteafs.error.version>1.5.0</coteafs.error.version>
 	</properties>
 
 	<dependencies>
