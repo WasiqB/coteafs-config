@@ -5,3 +5,6 @@
 /*.gpg
 /*.gpg.lock
 /reports/
+/.settings/
+/.classpath
+/.project
