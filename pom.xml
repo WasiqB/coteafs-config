@@ -6,12 +6,12 @@
 	<description>YAML based config file parser.</description>
 	<name>${project.groupId}:${project.artifactId}</name>
 	<url>https://github.com/WasiqB/coteafs-config</url>
-	<version>1.6.0</version>
+	<version>1.7.0</version>
 
 	<parent>
 		<groupId>com.github.wasiqb.coteafs</groupId>
 		<artifactId>parent</artifactId>
-		<version>2.0.1</version>
+		<version>2.1.0</version>
 	</parent>
 
 	<scm>
@@ -26,12 +26,12 @@
 	</issueManagement>
 
 	<ciManagement>
-		<system>GitLab CI</system>
-		<url>https://github.com/WasiqB/coteafs-config/pipelines</url>
+		<system>CircleCI</system>
+		<url>https://circleci.com/gh/WasiqB/coteafs-config</url>
 	</ciManagement>
 
 	<properties>
-		<coteafs.error.version>1.5.0</coteafs.error.version>
+		<coteafs.error.version>1.6.0</coteafs.error.version>
 	</properties>
 
 	<dependencies>
