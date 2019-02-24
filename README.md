@@ -7,7 +7,7 @@ You can use this library in your project by adding below snippet in your project
   <dependency>
     <groupId>com.github.wasiqb.coteafs</groupId>
     <artifactId>configs</artifactId>
-    <version>0.0.1</version>
+    <version>1.7.0</version>
   </dependency>
 ```
 
