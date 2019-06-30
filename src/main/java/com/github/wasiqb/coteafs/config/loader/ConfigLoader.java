@@ -24,6 +24,7 @@ import org.yaml.snakeyaml.constructor.Constructor;
 import org.yaml.snakeyaml.introspector.Property;
 import org.yaml.snakeyaml.introspector.PropertyUtils;
 
+import com.github.wasiqb.coteafs.config.error.ConfigNotSupportedError;
 import com.github.wasiqb.coteafs.config.error.CoteafsConfigFileNotFoundError;
 import com.github.wasiqb.coteafs.config.error.CoteafsConfigNotLoadedError;
 import com.google.common.base.CaseFormat;
@@ -93,15 +94,24 @@ public class ConfigLoader {
 	 */
 	private <T> T loadSettings (final Class <T> cls) {
 		final String path = System.getProperty (this.key, this.value);
+		if (!path.toLowerCase ()
+			.endsWith ("yaml")
+			&& !path.toLowerCase ()
+				.endsWith ("yml")) {
+			fail (ConfigNotSupportedError.class,
+				"This config file is not supported. Config file should be Yaml format only.");
+		}
 		try (final InputStream in = getClass ().getResourceAsStream (path)) {
 			if (in != null) {
 				final Constructor ctor = new Constructor (cls);
 				final PropertyUtils propertyUtils = new PropertyUtils () {
 					@Override
-					public Property getProperty (final Class <? extends Object> obj, final String name) {
+					public Property getProperty (final Class <? extends Object> obj,
+						final String name) {
 						String propertyName = name;
 						if (propertyName.indexOf ('_') > -1) {
-							propertyName = CaseFormat.LOWER_UNDERSCORE.to (CaseFormat.LOWER_CAMEL, propertyName);
+							propertyName = CaseFormat.LOWER_UNDERSCORE.to (CaseFormat.LOWER_CAMEL,
+								propertyName);
 						}
 						return super.getProperty (obj, propertyName);
 					}

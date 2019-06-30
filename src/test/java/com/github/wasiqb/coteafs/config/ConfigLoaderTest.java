@@ -34,8 +34,8 @@ public class ConfigLoaderTest {
 	 */
 	@Test
 	public void testConfigLoaderWithServiceSettings () {
-		final ServiceSetting setting = ConfigLoader	.settings ()
-													.load (ServiceSetting.class);
+		final ServiceSetting setting = ConfigLoader.settings ()
+			.load (ServiceSetting.class);
 		assertThat (setting.getApiUrl ()).isEqualTo ("http://localhost");
 		assertThat (setting.getApiPort ()).isEqualTo (8080);
 		assertThat (setting.getApiType ()).isEqualTo ("SOAP");
@@ -48,9 +48,9 @@ public class ConfigLoaderTest {
 	@Test (expectedExceptions = CoteafsConfigNotLoadedError.class)
 	public void testConfigWhenFileIsIncorrect () {
 		ConfigLoader.settings ()
-					.withKey ("coteafs.failed.setting")
-					.withDefault ("/test-config-malformed.yaml")
-					.load (ServiceSetting.class);
+			.withKey ("coteafs.failed.setting")
+			.withDefault ("/test-config-malformed.yaml")
+			.load (ServiceSetting.class);
 	}
 
 	/**
@@ -60,7 +60,7 @@ public class ConfigLoaderTest {
 	@Test (expectedExceptions = CoteafsConfigFileNotFoundError.class)
 	public void testConfigWhenFileNotExsits () {
 		ConfigLoader.settings ()
-					.withDefault ("/sconfig.yaml")
-					.load (ServiceSetting.class);
+			.withDefault ("/sconfig.yaml")
+			.load (ServiceSetting.class);
 	}
 }
