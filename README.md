@@ -15,8 +15,7 @@
 
 ## :boom: What's this all about?
 
-This is a simple library to parse Yaml Config files into POJO's. It can directly be dropped into your Maven / Gradle projects and can be used in the project without any hassle.
-
+This is a simple library to parse Config files of different formats into POJO's. It can directly be dropped into your Maven / Gradle projects and can be used in the project without any hassle.
 
 ## :golf: How to use?
 
@@ -56,7 +55,9 @@ public class ServiceSetting {
 }
 ```
 
-Once this is done, now you just need to define your POJO's corresponding YAML config file for your project, as shown below:
+Once this is done, now you just need to define your POJO's corresponding config file for your project, as shown below:
+
+### Yaml Config file
 
 _**test-config.yaml**_
 
@@ -66,20 +67,56 @@ port: 8080
 type: SOAP
 ```
 
-The config file path can be provided in system property with key `coteafs.config`, if it is not defined, then by default, library will search for file named `test-config.yaml` under `src/test/resources` directory.
+### JSON Config file
 
-Please make sure that keys should be **lower_case_with_words_separated_with_underscore**.
+_**test-config.json**_
 
-The following snippet shows how to write the code:
+```json
+{
+  "api_url": "http://localhost",
+  "api_port": 8080,
+  "api_type": "SOAP"
+}
+```
+
+### XML Config file
+
+_**test-config.xml**_
+
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<ServiceSetting>
+  <api_url>http://localhost</api_url>
+  <api_port>8080</api_port>
+  <api_type>SOAP</api_type>
+</ServiceSetting>
+```
+
+### Properties Config file
+
+_**test-config.properties**_
+
+```yaml
+api_url = http://localhost
+api_port = 8080
+api_type = SOAP
+```
+
+Make sure that config keys are **lower_case_with_words_separated_with_underscore**.
+
+The config file path can be provided in Environment variable with key `coteafs.config`, if it is not defined, then it will search System property with same key, if that is also not available then by default, it will search for file named `test-config.yaml` under `src/test/resources` directory.
+
+You can define your own key by using `withKey` method of `ConfigLoader` class. You can also define default file name which can be found under resources folder using `withDefault` method.
+
+### Example
 
 ```java
-  . . .
-
-  // This class can be any class you define for your config file.
-  ServiceSetting setting = ConfigLoader.settings (ServiceSetting.class);
-  String url = setting.getUrl ();
-
-  . . .
+import static com.github.wasiqb.coteafs.config.loader.ConfigLoader.settings;
+. . .
+  ServiceSetting setting = settings ().withKey ("coteafs.xyz.setting")
+    .withDefault ("test-config-xyz.json")
+    .load (ServiceSetting.class);
+. . .
 ```
 
 ## :pushpin: Usage?
@@ -90,19 +127,21 @@ You can use the following dependency into your `pom.xml` to use this library.
   <dependency>
     <groupId>com.github.wasiqb.coteafs</groupId>
     <artifactId>configs</artifactId>
-    <version>1.8.0</version>
+    <version>2.0.0</version>
   </dependency>
 ```
 
 Jar files can be directly downloaded from [Release](https://github.com/WasiqB/coteafs-config/releases) tab.
 
 ## :question: Need Assistance?
+
 * Directly chat with me on my [site][] and I'll revert to you as soon as possible.
 * Discuss your queries by writing to me @ wasbhamla2005@gmail.com
 * If you find any issue which is bottleneck for you, [search the issue tracker][] to see if it is already raised.
 * If not raised, then you can create a [new issue][] with required details as mentioned in the issue template.
 
 ## :star: What you do if you like the project?
+
 * Spread the word with your network.
 * **Star** the project to make the project popular.
 * Stay updated with the project progress by **Watching** it.

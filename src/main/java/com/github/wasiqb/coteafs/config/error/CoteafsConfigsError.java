@@ -25,24 +25,24 @@ import com.github.wasiqb.coteafs.error.enums.Severity;
  * @since Sep 30, 2017 9:34:52 PM
  */
 public class CoteafsConfigsError extends CoteafsError {
-	private static final long serialVersionUID = -4728560787414076762L;
+    private static final long serialVersionUID = -4728560787414076762L;
 
-	/**
-	 * @author wasiq.bhamla
-	 * @since Sep 30, 2017 9:34:53 PM
-	 * @param message
-	 */
-	public CoteafsConfigsError (final String message) {
-		super (message, Reason.R3, Category.C1, Severity.CRITICAL);
-	}
+    /**
+     * @author wasiq.bhamla
+     * @since Sep 30, 2017 9:34:53 PM
+     * @param message
+     */
+    public CoteafsConfigsError (final String message) {
+        super (message, Reason.R3, Category.C1, Severity.CRITICAL);
+    }
 
-	/**
-	 * @author wasiq.bhamla
-	 * @since Sep 30, 2017 9:34:53 PM
-	 * @param message
-	 * @param cause
-	 */
-	public CoteafsConfigsError (final String message, final Throwable cause) {
-		super (message, cause, Reason.R3, Category.C1, Severity.CRITICAL);
-	}
+    /**
+     * @author wasiq.bhamla
+     * @since Sep 30, 2017 9:34:53 PM
+     * @param message
+     * @param cause
+     */
+    public CoteafsConfigsError (final String message, final Throwable cause) {
+        super (message, cause, Reason.R3, Category.C1, Severity.CRITICAL);
+    }
 }

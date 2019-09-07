@@ -20,24 +20,24 @@ package com.github.wasiqb.coteafs.config.error;
  * @since 04-May-2017 11:19:31 PM
  */
 public class CoteafsConfigFileNotFoundError extends CoteafsConfigsError {
-	private static final long serialVersionUID = 7619491487630973407L;
+    private static final long serialVersionUID = 7619491487630973407L;
 
-	/**
-	 * @author wasiq.bhamla
-	 * @since 04-May-2017 11:19:31 PM
-	 * @param message
-	 */
-	public CoteafsConfigFileNotFoundError (final String message) {
-		super (message);
-	}
+    /**
+     * @author wasiq.bhamla
+     * @since 04-May-2017 11:19:31 PM
+     * @param message
+     */
+    public CoteafsConfigFileNotFoundError (final String message) {
+        super (message);
+    }
 
-	/**
-	 * @author wasiq.bhamla
-	 * @since 04-May-2017 11:19:31 PM
-	 * @param message
-	 * @param cause
-	 */
-	public CoteafsConfigFileNotFoundError (final String message, final Throwable cause) {
-		super (message, cause);
-	}
+    /**
+     * @author wasiq.bhamla
+     * @since 04-May-2017 11:19:31 PM
+     * @param message
+     * @param cause
+     */
+    public CoteafsConfigFileNotFoundError (final String message, final Throwable cause) {
+        super (message, cause);
+    }
 }

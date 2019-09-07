@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2017, Wasiq Bhamla.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,52 +15,99 @@
  */
 package com.github.wasiqb.coteafs.config;
 
+import static com.github.wasiqb.coteafs.config.loader.ConfigLoader.settings;
 import static com.google.common.truth.Truth.assertThat;
 
-import org.testng.annotations.Test;
-
+import com.github.wasiqb.coteafs.config.error.ConfigNotSupportedError;
 import com.github.wasiqb.coteafs.config.error.CoteafsConfigFileNotFoundError;
 import com.github.wasiqb.coteafs.config.error.CoteafsConfigNotLoadedError;
-import com.github.wasiqb.coteafs.config.loader.ConfigLoader;
+
+import org.testng.annotations.Test;
 
 /**
  * @author wasiq.bhamla
  * @since 09-Jun-2017 6:39:43 PM
  */
 public class ConfigLoaderTest {
-	/**
-	 * @author wasiq.bhamla
-	 * @since 09-Jun-2017 6:44:40 PM
-	 */
-	@Test
-	public void testConfigLoaderWithServiceSettings () {
-		final ServiceSetting setting = ConfigLoader.settings ()
-			.load (ServiceSetting.class);
-		assertThat (setting.getApiUrl ()).isEqualTo ("http://localhost");
-		assertThat (setting.getApiPort ()).isEqualTo (8080);
-		assertThat (setting.getApiType ()).isEqualTo ("SOAP");
-	}
+    /**
+     * @author wasiq.bhamla
+     * @since 09-Jun-2017 6:48:05 PM
+     */
+    @Test (expectedExceptions = CoteafsConfigNotLoadedError.class)
+    public void testConfigWhenFileIsIncorrect () {
+        settings ().withKey ("coteafs.failed.setting")
+            .withDefault ("test-config-malformed.yaml")
+            .load (ServiceSetting.class);
+    }
 
-	/**
-	 * @author wasiq.bhamla
-	 * @since 09-Jun-2017 6:48:05 PM
-	 */
-	@Test (expectedExceptions = CoteafsConfigNotLoadedError.class)
-	public void testConfigWhenFileIsIncorrect () {
-		ConfigLoader.settings ()
-			.withKey ("coteafs.failed.setting")
-			.withDefault ("/test-config-malformed.yaml")
-			.load (ServiceSetting.class);
-	}
+    /**
+     * @author wasiq.bhamla
+     * @since 09-Jun-2017 6:47:13 PM
+     */
+    @Test (expectedExceptions = CoteafsConfigFileNotFoundError.class)
+    public void testConfigWhenFileNotExsits () {
+        settings ().withDefault ("sconfig.yaml")
+            .load (ServiceSetting.class);
+    }
 
-	/**
-	 * @author wasiq.bhamla
-	 * @since 09-Jun-2017 6:47:13 PM
-	 */
-	@Test (expectedExceptions = CoteafsConfigFileNotFoundError.class)
-	public void testConfigWhenFileNotExsits () {
-		ConfigLoader.settings ()
-			.withDefault ("/sconfig.yaml")
-			.load (ServiceSetting.class);
-	}
+    /**
+     * @author Wasiq Bhamla
+     * @since 07-Sep-2019
+     */
+    @Test (expectedExceptions = ConfigNotSupportedError.class)
+    public void testIncorrectConfigFormat () {
+        settings ().withDefault ("test-config.txt")
+            .load (ServiceSetting.class);
+    }
+
+    /**
+     * @author Wasiq Bhamla
+     * @since 06-Sep-2019
+     */
+    @Test
+    public void testJsonConfigLoaderWithServiceSettings () {
+        final ServiceSetting setting = settings ().withDefault ("test-config.json")
+            .load (ServiceSetting.class);
+        assertThat (setting.getApiUrl ()).isEqualTo ("http://localhost");
+        assertThat (setting.getApiPort ()).isEqualTo (8080);
+        assertThat (setting.getApiType ()).isEqualTo ("SOAP");
+    }
+
+    /**
+     * @author Wasiq Bhamla
+     * @since 07-Sep-2019
+     */
+    @Test
+    public void testPropertiesConfigLoaderWithServiceSettings () {
+        final ServiceSetting setting = settings ().withDefault ("test-config.properties")
+            .load (ServiceSetting.class);
+        assertThat (setting.getApiUrl ()).isEqualTo ("http://localhost");
+        assertThat (setting.getApiPort ()).isEqualTo (8080);
+        assertThat (setting.getApiType ()).isEqualTo ("SOAP");
+    }
+
+    /**
+     * @author Wasiq Bhamla
+     * @since 07-Sep-2019
+     */
+    @Test
+    public void testXmlConfigLoaderWithServiceSettings () {
+        final ServiceSetting setting = settings ().withDefault ("test-config.xml")
+            .load (ServiceSetting.class);
+        assertThat (setting.getApiUrl ()).isEqualTo ("http://localhost");
+        assertThat (setting.getApiPort ()).isEqualTo (8080);
+        assertThat (setting.getApiType ()).isEqualTo ("SOAP");
+    }
+
+    /**
+     * @author wasiq.bhamla
+     * @since 09-Jun-2017 6:44:40 PM
+     */
+    @Test
+    public void testYamlConfigLoaderWithServiceSettings () {
+        final ServiceSetting setting = settings ().load (ServiceSetting.class);
+        assertThat (setting.getApiUrl ()).isEqualTo ("http://localhost");
+        assertThat (setting.getApiPort ()).isEqualTo (8080);
+        assertThat (setting.getApiType ()).isEqualTo ("SOAP");
+    }
 }

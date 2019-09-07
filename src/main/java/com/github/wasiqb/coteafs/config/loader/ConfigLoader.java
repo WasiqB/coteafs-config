@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2017, Wasiq Bhamla.
+/*
+ * Copyright (c) 2019, Wasiq Bhamla.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,116 +16,92 @@
 package com.github.wasiqb.coteafs.config.loader;
 
 import static com.github.wasiqb.coteafs.error.util.ErrorUtil.fail;
-
-import java.io.InputStream;
-
-import org.yaml.snakeyaml.Yaml;
-import org.yaml.snakeyaml.constructor.Constructor;
-import org.yaml.snakeyaml.introspector.Property;
-import org.yaml.snakeyaml.introspector.PropertyUtils;
+import static java.lang.System.getProperty;
+import static java.lang.System.getenv;
+import static java.text.MessageFormat.format;
+import static org.apache.commons.lang3.StringUtils.isEmpty;
 
 import com.github.wasiqb.coteafs.config.error.ConfigNotSupportedError;
-import com.github.wasiqb.coteafs.config.error.CoteafsConfigFileNotFoundError;
-import com.github.wasiqb.coteafs.config.error.CoteafsConfigNotLoadedError;
-import com.google.common.base.CaseFormat;
 
 /**
- * @author wasiq.bhamla
- * @since 09-Jun-2017 4:36:27 PM
+ * @author Wasiq Bhamla
+ * @since 06-Sep-2019
  */
 public class ConfigLoader {
-	/**
-	 * @author wasiq.bhamla
-	 * @since Jul 29, 2017 7:23:21 PM
-	 * @return instance.
-	 */
-	public static ConfigLoader settings () {
-		return new ConfigLoader ();
-	}
+    /**
+     * @author Wasiq Bhamla
+     * @since 06-Sep-2019
+     * @return config
+     */
+    public static ConfigLoader settings () {
+        return new ConfigLoader ();
+    }
 
-	private String	key;
-	private String	value;
+    private final String dir;
+    private String       key;
+    private String       value;
 
-	/**
-	 * @author wasiq.bhamla
-	 * @since 27-Jun-2017 7:22:17 PM
-	 */
-	private ConfigLoader () {
-		this.key = "coteafs.config";
-		this.value = "/test-config.yaml";
-	}
+    private ConfigLoader () {
+        this.dir = format ("{0}/src/test/resources/", getProperty ("user.dir"));
+        this.key = "coteafs.config";
+        this.value = "test-config.yaml";
+    }
 
-	/**
-	 * @author wasiq.bhamla
-	 * @since 09-Jun-2017 4:36:34 PM
-	 * @param cls
-	 * @return settings
-	 */
-	public <T> T load (final Class <T> cls) {
-		return loadSettings (cls);
-	}
+    /**
+     * @author Wasiq Bhamla
+     * @since 06-Sep-2019
+     * @param <T> any object
+     * @param cls class
+     * @return config object
+     */
+    public <T> T load (final Class<T> cls) {
+        final IConfigSource config = getConfig ();
+        return config.load (cls);
+    }
 
-	/**
-	 * @author wasiq.bhamla
-	 * @since Jul 29, 2017 7:20:50 PM
-	 * @param def
-	 * @return instance
-	 */
-	public ConfigLoader withDefault (final String def) {
-		this.value = def;
-		return this;
-	}
+    /**
+     * @author Wasiq Bhamla
+     * @since 06-Sep-2019
+     * @param defaultValue default value
+     * @return current instance
+     */
+    public ConfigLoader withDefault (final String defaultValue) {
+        this.value = defaultValue;
+        return this;
+    }
 
-	/**
-	 * @author wasiq.bhamla
-	 * @since Jul 29, 2017 7:14:50 PM
-	 * @param configKey
-	 * @return instance
-	 */
-	public ConfigLoader withKey (final String configKey) {
-		this.key = configKey;
-		return this;
-	}
+    /**
+     * @author Wasiq Bhamla
+     * @since 06-Sep-2019
+     * @param configKey config key
+     * @return current instance
+     */
+    public ConfigLoader withKey (final String configKey) {
+        this.key = configKey;
+        return this;
+    }
 
-	/**
-	 * @author wasiq.bhamla
-	 * @since 09-Jun-2017 5:00:19 PM
-	 * @param cls
-	 */
-	private <T> T loadSettings (final Class <T> cls) {
-		final String path = System.getProperty (this.key, this.value);
-		if (!path.toLowerCase ()
-			.endsWith ("yaml")
-			&& !path.toLowerCase ()
-				.endsWith ("yml")) {
-			fail (ConfigNotSupportedError.class,
-				"This config file is not supported. Config file should be Yaml format only.");
-		}
-		try (final InputStream in = getClass ().getResourceAsStream (path)) {
-			if (in != null) {
-				final Constructor ctor = new Constructor (cls);
-				final PropertyUtils propertyUtils = new PropertyUtils () {
-					@Override
-					public Property getProperty (final Class <? extends Object> obj,
-						final String name) {
-						String propertyName = name;
-						if (propertyName.indexOf ('_') > -1) {
-							propertyName = CaseFormat.LOWER_UNDERSCORE.to (CaseFormat.LOWER_CAMEL,
-								propertyName);
-						}
-						return super.getProperty (obj, propertyName);
-					}
-				};
-				ctor.setPropertyUtils (propertyUtils);
-				final Yaml yaml = new Yaml (ctor);
-				return yaml.load (in);
-			}
-		}
-		catch (final Exception e) {
-			fail (CoteafsConfigNotLoadedError.class, "Error loading config file.", e);
-		}
-		final String MSG = "%s not found.";
-		fail (CoteafsConfigFileNotFoundError.class, String.format (MSG, path));
-		return null;
-	}
+    private IConfigSource getConfig () {
+        final String path = getConfigPath ();
+        final String ext = path.substring (path.lastIndexOf (".") + 1);
+        switch (ext.toLowerCase ()) {
+            case "yaml":
+            case "yml":
+                return new YamlConfigLoader (path);
+            case "json":
+                return new JsonConfigLoader (path);
+            case "properties":
+                return new PropertiesConfigLoader (path);
+            case "xml":
+                return new XmlConfigLoader (path);
+            default:
+                fail (ConfigNotSupportedError.class, format ("This config file format [{0}] is not supported.", ext));
+        }
+        return null;
+    }
+
+    private String getConfigPath () {
+        final String envPath = getenv (this.key);
+        return isEmpty (envPath) ? getProperty (this.key, format ("{0}{1}", this.dir, this.value)) : envPath;
+    }
 }
