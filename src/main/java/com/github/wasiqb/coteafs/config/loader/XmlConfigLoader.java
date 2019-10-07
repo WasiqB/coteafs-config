@@ -17,14 +17,12 @@ package com.github.wasiqb.coteafs.config.loader;
 
 import static com.fasterxml.jackson.databind.PropertyNamingStrategy.SNAKE_CASE;
 import static com.github.wasiqb.coteafs.error.util.ErrorUtil.fail;
-import static java.text.MessageFormat.format;
+import static com.github.wasiqb.coteafs.error.util.ErrorUtil.handleError;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import com.github.wasiqb.coteafs.config.error.CoteafsConfigFileNotFoundError;
 import com.github.wasiqb.coteafs.config.error.CoteafsConfigNotLoadedError;
 
 /**
@@ -32,6 +30,8 @@ import com.github.wasiqb.coteafs.config.error.CoteafsConfigNotLoadedError;
  * @since 07-Sep-2019
  */
 class XmlConfigLoader extends AbstractConfigLoader {
+    private final XmlMapper mapper;
+
     /**
      * @author Wasiq Bhamla
      * @since 07-Sep-2019
@@ -39,6 +39,22 @@ class XmlConfigLoader extends AbstractConfigLoader {
      */
     XmlConfigLoader (final String path) {
         super (path);
+        this.mapper = new XmlMapper ();
+        this.mapper.setPropertyNamingStrategy (SNAKE_CASE);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see @see
+     * com.github.wasiqb.coteafs.config.loader.IConfigSource#create(java.lang.Class)
+     */
+    @Override
+    public <T> void create (final Class<T> cls) {
+        try {
+            this.mapper.writeValue (new File (this.path), cls.newInstance ());
+        } catch (final IOException | InstantiationException | IllegalAccessException e) {
+            handleError ("com.github.wasiqb", e).forEach (System.err::println);
+        }
     }
 
     /*
@@ -49,12 +65,8 @@ class XmlConfigLoader extends AbstractConfigLoader {
     @Override
     public <T> T load (final Class<T> cls) {
         try {
-            final XmlMapper mapper = new XmlMapper ();
-            mapper.setPropertyNamingStrategy (SNAKE_CASE);
-            return mapper.readValue (new File (this.path), cls);
-        } catch (final FileNotFoundException e) {
-            final String MSG = "{0} not found.";
-            fail (CoteafsConfigFileNotFoundError.class, format (MSG, this.path), e);
+            checkAndCreateDefaultConfig (cls);
+            return this.mapper.readValue (new File (this.path), cls);
         } catch (final IOException e) {
             fail (CoteafsConfigNotLoadedError.class, "Error loading config file.", e);
         }

@@ -1,4 +1,12 @@
-# coteafs-config
+<p align="center">
+  <a href="">
+    <img src="assets/coteafs-config-logo.png" width=300 padding=10 />
+  </a>
+</p>
+
+<h1 align="center">Simple multi format configuration support for your project created in Java.</h1>
+
+<div align="center">
 
 [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)][home]
 [![CircleCI](https://circleci.com/gh/WasiqB/coteafs-config.svg?style=svg)][circleci]
@@ -13,21 +21,32 @@
 [![Github Releases](https://img.shields.io/github/downloads/WasiqB/coteafs-config/total.svg)](https://github.com/WasiqB/coteafs-config/releases)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
+</div>
+
 ## :boom: What's this all about?
 
 This is a simple library to parse Config files of different formats into POJO's. It can directly be dropped into your Maven / Gradle projects and can be used in the project without any hassle.
 
 ## :golf: How to use?
 
-To use this library, define your project specific config's POJO in whichever package as you may wish. Then define your POJO's fields using [lowerCaseNamingConvention](http://wiki.c2.com/?LowerCamelCase), and generate getter-setters for each field accordingly.
+To use this library, define your project specific config's POJO in whichever package as you may wish. Then define your POJO's fields using [lowerCaseNamingConvention](http://wiki.c2.com/?LowerCamelCase), and generate getter-setters for each field accordingly. Finally, define default values for your config class in it's constructor.
 
 _**ServiceSetting.java**_
 
 ```java
-public class ServiceSetting {
+import com.github.wasiqb.coteafs.config.util.BasePojo;
+
+public class ServiceSetting extends BasePojo {
   private int port;
   private String type;
   private String  url;
+
+  // Define default values for the config.
+  public ServiceSetting () {
+    this.apiPort = 3000;
+    this.apiType = "Rest";
+    this.apiUrl = "https://localhost";
+  }
 
   public int getPort () {
     return this.port;
@@ -57,6 +76,8 @@ public class ServiceSetting {
 
 Once this is done, now you just need to define your POJO's corresponding config file for your project, as shown below:
 
+> **Pro Tip!** If you don't want to create the config file manually, then no need to worry, This library will create the config file for you with default values set in the constructor.
+
 ### Yaml Config file
 
 _**test-config.yaml**_
@@ -64,7 +85,7 @@ _**test-config.yaml**_
 ```yaml
 url: http://localhost
 port: 8080
-type: SOAP
+type: ${ENV_TYPE} # Environment variable placeholders are allowed.
 ```
 
 ### JSON Config file
@@ -102,6 +123,8 @@ api_port = 8080
 api_type = SOAP
 ```
 
+> **Additional Tip!!** This library also supports Environment and System property placeholders in the config file for string fields but only for YAML and JSON format configs.
+
 Make sure that config keys are **lower_case_with_words_separated_with_underscore**.
 
 The config file path can be provided in Environment variable with key `coteafs.config`, if it is not defined, then it will search System property with same key, if that is also not available then by default, it will search for file named `test-config.yaml` under `src/test/resources` directory.
@@ -127,7 +150,7 @@ You can use the following dependency into your `pom.xml` to use this library.
   <dependency>
     <groupId>com.github.wasiqb.coteafs</groupId>
     <artifactId>configs</artifactId>
-    <version>2.0.0</version>
+    <version>2.1.0</version>
   </dependency>
 ```
 

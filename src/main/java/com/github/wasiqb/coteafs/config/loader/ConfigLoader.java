@@ -83,7 +83,7 @@ public class ConfigLoader {
 
     private IConfigSource getConfig () {
         final String path = getConfigPath ();
-        final String ext = path.substring (path.lastIndexOf (".") + 1);
+        final String ext = path.substring (path.lastIndexOf ('.') + 1);
         switch (ext.toLowerCase ()) {
             case "yaml":
             case "yml":

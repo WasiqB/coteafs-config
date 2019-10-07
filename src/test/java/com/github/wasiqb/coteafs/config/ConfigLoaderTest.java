@@ -17,9 +17,11 @@ package com.github.wasiqb.coteafs.config;
 
 import static com.github.wasiqb.coteafs.config.loader.ConfigLoader.settings;
 import static com.google.common.truth.Truth.assertThat;
+import static java.text.MessageFormat.format;
+
+import java.io.File;
 
 import com.github.wasiqb.coteafs.config.error.ConfigNotSupportedError;
-import com.github.wasiqb.coteafs.config.error.CoteafsConfigFileNotFoundError;
 import com.github.wasiqb.coteafs.config.error.CoteafsConfigNotLoadedError;
 
 import org.testng.annotations.Test;
@@ -29,6 +31,11 @@ import org.testng.annotations.Test;
  * @since 09-Jun-2017 6:39:43 PM
  */
 public class ConfigLoaderTest {
+    private static void deleteIfExists (final String fileName) {
+        final File config = new File (format ("./src/test/resources/{0}", fileName));
+        config.delete ();
+    }
+
     /**
      * @author wasiq.bhamla
      * @since 09-Jun-2017 6:48:05 PM
@@ -41,13 +48,59 @@ public class ConfigLoaderTest {
     }
 
     /**
+     * @author Wasiq Bhamla
+     * @since 06-Oct-2019
+     */
+    @Test
+    public void testConfigWhenJsonFileNotExsits () {
+        final ServiceSetting setting = settings ().withDefault ("sconfig.json")
+            .load (ServiceSetting.class);
+        assertThat (setting.getApiUrl ()).isEqualTo ("https://localhost");
+        assertThat (setting.getApiPort ()).isEqualTo (3000);
+        assertThat (setting.getApiType ()).isEqualTo ("Rest");
+        deleteIfExists ("sconfig.json");
+    }
+
+    /**
+     * @author Wasiq Bhamla
+     * @since 06-Oct-2019
+     */
+    @Test
+    public void testConfigWhenPropertiesFileNotExsits () {
+        final ServiceSetting setting = settings ().withDefault ("sconfig.properties")
+            .load (ServiceSetting.class);
+        assertThat (setting.getApiUrl ()).isEqualTo ("https://localhost");
+        assertThat (setting.getApiPort ()).isEqualTo (3000);
+        assertThat (setting.getApiType ()).isEqualTo ("Rest");
+        deleteIfExists ("sconfig.properties");
+    }
+
+    /**
+     * @author Wasiq Bhamla
+     * @since 06-Oct-2019
+     */
+    @Test
+    public void testConfigWhenXmlFileNotExsits () {
+        final ServiceSetting setting = settings ().withDefault ("sconfig.xml")
+            .load (ServiceSetting.class);
+        assertThat (setting.getApiUrl ()).isEqualTo ("https://localhost");
+        assertThat (setting.getApiPort ()).isEqualTo (3000);
+        assertThat (setting.getApiType ()).isEqualTo ("Rest");
+        deleteIfExists ("sconfig.xml");
+    }
+
+    /**
      * @author wasiq.bhamla
      * @since 09-Jun-2017 6:47:13 PM
      */
-    @Test (expectedExceptions = CoteafsConfigFileNotFoundError.class)
-    public void testConfigWhenFileNotExsits () {
-        settings ().withDefault ("sconfig.yaml")
+    @Test
+    public void testConfigWhenYamlFileNotExsits () {
+        final ServiceSetting setting = settings ().withDefault ("sconfig.yaml")
             .load (ServiceSetting.class);
+        assertThat (setting.getApiUrl ()).isEqualTo ("https://localhost");
+        assertThat (setting.getApiPort ()).isEqualTo (3000);
+        assertThat (setting.getApiType ()).isEqualTo ("Rest");
+        deleteIfExists ("sconfig.yaml");
     }
 
     /**

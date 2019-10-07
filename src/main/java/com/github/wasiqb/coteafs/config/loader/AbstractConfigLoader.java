@@ -15,6 +15,8 @@
  */
 package com.github.wasiqb.coteafs.config.loader;
 
+import java.io.File;
+
 /**
  * @author Wasiq Bhamla
  * @since 06-Sep-2019
@@ -29,5 +31,12 @@ abstract class AbstractConfigLoader implements IConfigSource {
      */
     AbstractConfigLoader (final String path) {
         this.path = path;
+    }
+
+    <T> void checkAndCreateDefaultConfig (final Class<T> cls) {
+        final File config = new File (this.path);
+        if (!config.exists ()) {
+            create (cls);
+        }
     }
 }

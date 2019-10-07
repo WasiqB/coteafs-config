@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2017, Wasiq Bhamla.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,7 +24,7 @@ import com.github.wasiqb.coteafs.error.enums.Severity;
  * @author wasiq.bhamla
  * @since Sep 30, 2017 9:34:52 PM
  */
-public class CoteafsConfigsError extends CoteafsError {
+class CoteafsConfigsError extends CoteafsError {
     private static final long serialVersionUID = -4728560787414076762L;
 
     /**
@@ -32,7 +32,7 @@ public class CoteafsConfigsError extends CoteafsError {
      * @since Sep 30, 2017 9:34:53 PM
      * @param message
      */
-    public CoteafsConfigsError (final String message) {
+    CoteafsConfigsError (final String message) {
         super (message, Reason.R3, Category.C1, Severity.CRITICAL);
     }
 
@@ -42,7 +42,7 @@ public class CoteafsConfigsError extends CoteafsError {
      * @param message
      * @param cause
      */
-    public CoteafsConfigsError (final String message, final Throwable cause) {
+    CoteafsConfigsError (final String message, final Throwable cause) {
         super (message, cause, Reason.R3, Category.C1, Severity.CRITICAL);
     }
 }

@@ -15,14 +15,53 @@
  */
 package com.github.wasiqb.coteafs.config;
 
+import com.github.wasiqb.coteafs.config.util.BasePojo;
+
 /**
  * @author wasiq.bhamla
  * @since 09-Jun-2017 6:40:36 PM
  */
-public class ServiceSetting {
+public class ServiceSetting extends BasePojo {
     private int    apiPort;
     private String apiType;
     private String apiUrl;
+
+    /**
+     * @author Wasiq Bhamla
+     * @since 05-Oct-2019
+     */
+    public ServiceSetting () {
+        this.apiPort = 3000;
+        this.apiType = "Rest";
+        this.apiUrl = "https://localhost";
+    }
+
+    /**
+     * @author wasiq.bhamla
+     * @since 27-Jun-2017 7:15:29 PM
+     * @param apiPort the apiPort to set
+     */
+    public void setApiPort (final int apiPort) {
+        this.apiPort = apiPort;
+    }
+
+    /**
+     * @author wasiq.bhamla
+     * @since 27-Jun-2017 7:15:29 PM
+     * @param apiType the apiType to set
+     */
+    public void setApiType (final String apiType) {
+        this.apiType = apiType;
+    }
+
+    /**
+     * @author wasiq.bhamla
+     * @since 27-Jun-2017 7:15:29 PM
+     * @param apiUrl the apiUrl to set
+     */
+    public void setApiUrl (final String apiUrl) {
+        this.apiUrl = apiUrl;
+    }
 
     /**
      * @author wasiq.bhamla
@@ -49,35 +88,5 @@ public class ServiceSetting {
      */
     String getApiUrl () {
         return this.apiUrl;
-    }
-
-    /**
-     * @author wasiq.bhamla
-     * @since 27-Jun-2017 7:15:29 PM
-     * @param apiPort
-     *     the apiPort to set
-     */
-    public void setApiPort (final int apiPort) {
-        this.apiPort = apiPort;
-    }
-
-    /**
-     * @author wasiq.bhamla
-     * @since 27-Jun-2017 7:15:29 PM
-     * @param apiType
-     *     the apiType to set
-     */
-    public void setApiType (final String apiType) {
-        this.apiType = apiType;
-    }
-
-    /**
-     * @author wasiq.bhamla
-     * @since 27-Jun-2017 7:15:29 PM
-     * @param apiUrl
-     *     the apiUrl to set
-     */
-    public void setApiUrl (final String apiUrl) {
-        this.apiUrl = apiUrl;
     }
 }

@@ -13,27 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.wasiqb.coteafs.config.loader;
+package com.github.wasiqb.coteafs.config.util;
+
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 
 /**
  * @author Wasiq Bhamla
- * @since 06-Sep-2019
+ * @since 06-Oct-2019
  */
-public interface IConfigSource {
-    /**
-     * @author Wasiq Bhamla
-     * @since 05-Oct-2019
-     * @param <T>
-     * @param cls
-     */
-    <T> void create (Class<T> cls);
-
-    /**
-     * @author Wasiq Bhamla
-     * @since 06-Sep-2019
-     * @param <T> any object
-     * @param cls class
-     * @return config object
-     */
-    <T> T load (final Class<T> cls);
+@JsonAutoDetect (fieldVisibility = Visibility.ANY)
+public class BasePojo {
+    // Base annotated Pojo.
 }
