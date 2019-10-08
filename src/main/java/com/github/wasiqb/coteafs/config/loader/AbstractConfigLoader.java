@@ -15,25 +15,49 @@
  */
 package com.github.wasiqb.coteafs.config.loader;
 
+import static com.github.wasiqb.coteafs.error.util.ErrorUtil.fail;
+
 import java.io.File;
+import java.io.IOException;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.wasiqb.coteafs.config.error.CoteafsConfigNotLoadedError;
+import com.github.wasiqb.coteafs.config.error.CoteafsConfigNotSavedError;
 
 /**
  * @author Wasiq Bhamla
  * @since 06-Sep-2019
  */
-abstract class AbstractConfigLoader implements IConfigSource {
-    final String path;
+class AbstractConfigLoader implements IConfigSource {
+    ObjectMapper mapper;
+    private final String path;
 
-    /**
-     * @author Wasiq Bhamla
-     * @param path Path
-     * @since 06-Sep-2019
-     */
     AbstractConfigLoader (final String path) {
         this.path = path;
     }
 
-    <T> void checkAndCreateDefaultConfig (final Class<T> cls) {
+    @Override
+    public <T> void create (final Class<T> cls) {
+        try {
+            final T obj = cls.newInstance ();
+            this.mapper.writeValue (new File (this.path), obj);
+        } catch (final IOException | InstantiationException | IllegalAccessException e) {
+            fail (CoteafsConfigNotSavedError.class, "Error saving config file.", e);
+        }
+    }
+
+    @Override
+    public <T> T load (final Class<T> cls) {
+        try {
+            checkAndCreateDefaultConfig (cls);
+            return this.mapper.readValue (new File (this.path), cls);
+        } catch (final IOException e) {
+            fail (CoteafsConfigNotLoadedError.class, "Error loading config file.", e);
+        }
+        return null;
+    }
+
+    private <T> void checkAndCreateDefaultConfig (final Class<T> cls) {
         final File config = new File (this.path);
         if (!config.exists ()) {
             create (cls);

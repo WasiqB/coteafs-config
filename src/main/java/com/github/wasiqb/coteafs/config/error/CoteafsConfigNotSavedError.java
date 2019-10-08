@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2019, Wasiq Bhamla.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,25 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.wasiqb.coteafs.config.loader;
-
-import static com.fasterxml.jackson.databind.PropertyNamingStrategy.SNAKE_CASE;
-
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+package com.github.wasiqb.coteafs.config.error;
 
 /**
  * @author Wasiq Bhamla
- * @since 07-Sep-2019
+ * @since 08-Oct-2019
  */
-class XmlConfigLoader extends AbstractConfigLoader {
+public class CoteafsConfigNotSavedError extends CoteafsConfigsError {
+    private static final long serialVersionUID = 5056940714682265826L;
+
     /**
      * @author Wasiq Bhamla
-     * @since 07-Sep-2019
-     * @param path
+     * @since 08-Oct-2019
+     * @param message
      */
-    XmlConfigLoader (final String path) {
-        super (path);
-        this.mapper = new XmlMapper ();
-        this.mapper.setPropertyNamingStrategy (SNAKE_CASE);
+    public CoteafsConfigNotSavedError (final String message) {
+        super (message);
+    }
+
+    /**
+     * @author Wasiq Bhamla
+     * @since 08-Oct-2019
+     * @param message
+     * @param cause
+     */
+    public CoteafsConfigNotSavedError (final String message, final Throwable cause) {
+        super (message, cause);
     }
 }
