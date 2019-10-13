@@ -29,7 +29,7 @@ import com.github.wasiqb.coteafs.config.error.CoteafsConfigNotSavedError;
  * @since 06-Sep-2019
  */
 class AbstractConfigLoader implements IConfigSource {
-    ObjectMapper mapper;
+    ObjectMapper         mapper;
     private final String path;
 
     AbstractConfigLoader (final String path) {

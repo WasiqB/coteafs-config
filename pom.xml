@@ -6,7 +6,7 @@
 	<description>YAML based config file parser.</description>
 	<name>${project.groupId}:${project.artifactId}</name>
 	<url>https://github.com/WasiqB/coteafs-config</url>
-	<version>2.1.0</version>
+	<version>2.1.1</version>
 
 	<parent>
 		<groupId>com.github.wasiqb.coteafs</groupId>
