@@ -50,7 +50,7 @@ jobs:
           key: repo-target-{{ .Branch }}-{{ .Revision }}
       - run:
           name: Run Tests with Sonar Coverage
-          command: mvn org.jacoco:jacoco-maven-plugin:prepare-agent install -Dtype=SOAP -Pcoverage-per-test
+          command: ENV_URL=http://localhost mvn org.jacoco:jacoco-maven-plugin:prepare-agent install -Dtype=SOAP -Pcoverage-per-test
       - save_cache:
           key: repo-reports-{{ .Branch }}-{{ .Revision }}
           paths:

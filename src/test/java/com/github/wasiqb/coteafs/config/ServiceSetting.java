@@ -30,63 +30,63 @@ public class ServiceSetting extends BasePojo {
      * @author Wasiq Bhamla
      * @since 05-Oct-2019
      */
-    public ServiceSetting () {
+    public ServiceSetting() {
         this.apiPort = 3000;
         this.apiType = "Rest";
         this.apiUrl = "https://localhost";
     }
 
     /**
+     * @param apiPort the apiPort to set
      * @author wasiq.bhamla
      * @since 27-Jun-2017 7:15:29 PM
-     * @param apiPort the apiPort to set
      */
-    public void setApiPort (final int apiPort) {
+    public void setApiPort(final int apiPort) {
         this.apiPort = apiPort;
     }
 
     /**
+     * @param apiType the apiType to set
      * @author wasiq.bhamla
      * @since 27-Jun-2017 7:15:29 PM
-     * @param apiType the apiType to set
      */
-    public void setApiType (final String apiType) {
+    public void setApiType(final String apiType) {
         this.apiType = apiType;
     }
 
     /**
+     * @param apiUrl the apiUrl to set
      * @author wasiq.bhamla
      * @since 27-Jun-2017 7:15:29 PM
-     * @param apiUrl the apiUrl to set
      */
-    public void setApiUrl (final String apiUrl) {
+    public void setApiUrl(final String apiUrl) {
         this.apiUrl = apiUrl;
     }
 
     /**
+     * @return the apiPort
      * @author wasiq.bhamla
      * @since 27-Jun-2017 7:15:29 PM
-     * @return the apiPort
      */
-    int getApiPort () {
+    int getApiPort() {
         return this.apiPort;
     }
 
     /**
+     * @return the apiType
      * @author wasiq.bhamla
      * @since 27-Jun-2017 7:15:29 PM
-     * @return the apiType
      */
-    String getApiType () {
+    String getApiType() {
         return this.apiType;
     }
 
     /**
+     * @return the apiUrl
      * @author wasiq.bhamla
      * @since 27-Jun-2017 7:15:29 PM
-     * @return the apiUrl
      */
-    String getApiUrl () {
+    String getApiUrl() {
         return this.apiUrl;
     }
 }

@@ -21,19 +21,19 @@ package com.github.wasiqb.coteafs.config.loader;
  */
 public interface IConfigSource {
     /**
+     * @param <T>
+     * @param data
      * @author Wasiq Bhamla
      * @since 05-Oct-2019
-     * @param <T>
-     * @param cls
      */
-    <T> void create (Class<T> cls);
+    <T> void create(T data);
 
     /**
-     * @author Wasiq Bhamla
-     * @since 06-Sep-2019
      * @param <T> any object
      * @param cls class
      * @return config object
+     * @author Wasiq Bhamla
+     * @since 06-Sep-2019
      */
-    <T> T load (final Class<T> cls);
+    <T> T load(final Class<T> cls);
 }

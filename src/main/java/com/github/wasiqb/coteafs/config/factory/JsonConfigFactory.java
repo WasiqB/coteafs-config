@@ -38,27 +38,27 @@ public class JsonConfigFactory extends MappingJsonFactory {
      * @author Wasiq Bhamla
      * @since 03-Oct-2019
      */
-    public JsonConfigFactory () {
-        super ();
+    public JsonConfigFactory() {
+        super();
     }
 
     /**
-     * @author Wasiq Bhamla
-     * @since 03-Oct-2019
      * @param src
      * @param mapper
+     * @author Wasiq Bhamla
+     * @since 03-Oct-2019
      */
-    public JsonConfigFactory (final JsonFactory src, final ObjectMapper mapper) {
-        super (src, mapper);
+    public JsonConfigFactory(final JsonFactory src, final ObjectMapper mapper) {
+        super(src, mapper);
     }
 
     /**
+     * @param mapper
      * @author Wasiq Bhamla
      * @since 03-Oct-2019
-     * @param mapper
      */
-    public JsonConfigFactory (final ObjectMapper mapper) {
-        super (mapper);
+    public JsonConfigFactory(final ObjectMapper mapper) {
+        super(mapper);
     }
 
     /*
@@ -67,9 +67,9 @@ public class JsonConfigFactory extends MappingJsonFactory {
      * int, com.fasterxml.jackson.core.io.IOContext)
      */
     @Override
-    protected JsonParser _createParser (final byte [] data, final int offset, final int len, final IOContext ctxt)
-        throws IOException {
-        return new JsonConfigParser (super._createParser (data, offset, len, ctxt));
+    protected JsonParser _createParser(final byte[] data, final int offset, final int len,
+        final IOContext ctxt) throws IOException {
+        return new JsonConfigParser(super._createParser(data, offset, len, ctxt));
     }
 
     /*
@@ -78,9 +78,9 @@ public class JsonConfigFactory extends MappingJsonFactory {
      * int, com.fasterxml.jackson.core.io.IOContext, boolean)
      */
     @Override
-    protected JsonParser _createParser (final char [] data, final int offset, final int len, final IOContext ctxt,
-        final boolean recyclable) throws IOException {
-        return new JsonConfigParser (super._createParser (data, offset, len, ctxt, recyclable));
+    protected JsonParser _createParser(final char[] data, final int offset, final int len,
+        final IOContext ctxt, final boolean recyclable) throws IOException {
+        return new JsonConfigParser(super._createParser(data, offset, len, ctxt, recyclable));
     }
 
     /*
@@ -90,8 +90,9 @@ public class JsonConfigFactory extends MappingJsonFactory {
      * com.fasterxml.jackson.core.io.IOContext)
      */
     @Override
-    protected JsonParser _createParser (final DataInput input, final IOContext ctxt) throws IOException {
-        return new JsonConfigParser (super._createParser (input, ctxt));
+    protected JsonParser _createParser(final DataInput input, final IOContext ctxt)
+        throws IOException {
+        return new JsonConfigParser(super._createParser(input, ctxt));
     }
 
     /*
@@ -101,8 +102,9 @@ public class JsonConfigFactory extends MappingJsonFactory {
      * com.fasterxml.jackson.core.io.IOContext)
      */
     @Override
-    protected JsonParser _createParser (final InputStream in, final IOContext ctxt) throws IOException {
-        return new JsonConfigParser (super._createParser (in, ctxt));
+    protected JsonParser _createParser(final InputStream in, final IOContext ctxt)
+        throws IOException {
+        return new JsonConfigParser(super._createParser(in, ctxt));
     }
 
     /*
@@ -112,7 +114,7 @@ public class JsonConfigFactory extends MappingJsonFactory {
      * com.fasterxml.jackson.core.io.IOContext)
      */
     @Override
-    protected JsonParser _createParser (final Reader r, final IOContext ctxt) throws IOException {
-        return new JsonConfigParser (super._createParser (r, ctxt));
+    protected JsonParser _createParser(final Reader r, final IOContext ctxt) throws IOException {
+        return new JsonConfigParser(super._createParser(r, ctxt));
     }
 }

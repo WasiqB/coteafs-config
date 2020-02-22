@@ -27,14 +27,14 @@ import com.github.wasiqb.coteafs.config.factory.JsonConfigFactory;
  */
 class JsonConfigLoader extends AbstractConfigLoader {
     /**
+     * @param path path
      * @author Wasiq Bhamla
      * @since 06-Sep-2019
-     * @param path path
      */
-    JsonConfigLoader (final String path) {
-        super (path);
-        final JsonFactory factory = new JsonConfigFactory ();
-        this.mapper = new ObjectMapper (factory);
-        this.mapper.setPropertyNamingStrategy (SNAKE_CASE);
+    JsonConfigLoader(final String path) {
+        super(path);
+        final JsonFactory factory = new JsonConfigFactory();
+        this.mapper = new ObjectMapper(factory);
+        this.mapper.setPropertyNamingStrategy(SNAKE_CASE);
     }
 }

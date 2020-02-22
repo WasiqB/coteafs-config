@@ -1,0 +1,5 @@
+fileignoreconfig:
+- filename: src/main/java/com/github/wasiqb/coteafs/config/error/DefaultConfigNotCreatedError.java
+  checksum: fe4d1a9fd1b4f5b5cc2845bdc266ab62de4655aa826dd66a043795d330c37c9d
+  ignore_detectors: []
+scopeconfig: []

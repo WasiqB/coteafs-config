@@ -28,12 +28,12 @@ import com.fasterxml.jackson.core.util.JsonParserDelegate;
  */
 public class JsonConfigParser extends JsonParserDelegate {
     /**
+     * @param d
      * @author Wasiq Bhamla
      * @since 03-Oct-2019
-     * @param d
      */
-    public JsonConfigParser (final JsonParser d) {
-        super (d);
+    public JsonConfigParser(final JsonParser d) {
+        super(d);
     }
 
     /*
@@ -41,8 +41,8 @@ public class JsonConfigParser extends JsonParserDelegate {
      * @see @see com.fasterxml.jackson.core.util.JsonParserDelegate#getText()
      */
     @Override
-    public String getText () throws IOException {
-        return interpolate (super.getText ());
+    public String getText() throws IOException {
+        return interpolate(super.getText());
     }
 
     /*
@@ -51,8 +51,8 @@ public class JsonConfigParser extends JsonParserDelegate {
      * com.fasterxml.jackson.core.util.JsonParserDelegate#getValueAsString()
      */
     @Override
-    public String getValueAsString () throws IOException {
-        return interpolate (super.getValueAsString ());
+    public String getValueAsString() throws IOException {
+        return interpolate(super.getValueAsString());
     }
 
     /*
@@ -62,7 +62,7 @@ public class JsonConfigParser extends JsonParserDelegate {
      * .String)
      */
     @Override
-    public String getValueAsString (final String defaultValue) throws IOException {
-        return interpolate (super.getValueAsString (defaultValue));
+    public String getValueAsString(final String defaultValue) throws IOException {
+        return interpolate(super.getValueAsString(defaultValue));
     }
 }

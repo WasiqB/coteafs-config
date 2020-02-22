@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
  * @author Wasiq Bhamla
  * @since 06-Oct-2019
  */
-@JsonAutoDetect (fieldVisibility = Visibility.ANY)
+@JsonAutoDetect(fieldVisibility = Visibility.ANY)
 public class BasePojo {
     // Base annotated Pojo.
 }

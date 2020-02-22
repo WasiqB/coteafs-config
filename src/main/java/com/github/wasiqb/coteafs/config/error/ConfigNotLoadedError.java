@@ -19,25 +19,25 @@ package com.github.wasiqb.coteafs.config.error;
  * @author wasiq.bhamla
  * @since 04-May-2017 11:22:34 PM
  */
-public class CoteafsConfigNotLoadedError extends CoteafsConfigsError {
+public class ConfigNotLoadedError extends CoteafsConfigsError {
     private static final long serialVersionUID = 3051298544062173848L;
 
     /**
+     * @param message
      * @author wasiq.bhamla
      * @since 04-May-2017 11:22:34 PM
-     * @param message
      */
-    public CoteafsConfigNotLoadedError (final String message) {
-        super (message);
+    public ConfigNotLoadedError(final String message) {
+        super(message);
     }
 
     /**
-     * @author wasiq.bhamla
-     * @since 04-May-2017 11:22:34 PM
      * @param message
      * @param cause
+     * @author wasiq.bhamla
+     * @since 04-May-2017 11:22:34 PM
      */
-    public CoteafsConfigNotLoadedError (final String message, final Throwable cause) {
-        super (message, cause);
+    public ConfigNotLoadedError(final String message, final Throwable cause) {
+        super(message, cause);
     }
 }

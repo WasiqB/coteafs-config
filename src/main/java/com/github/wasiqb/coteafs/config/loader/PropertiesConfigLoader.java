@@ -14,9 +14,9 @@ class PropertiesConfigLoader extends AbstractConfigLoader {
      * @author Wasiq Bhamla
      * @since 06-Sep-2019
      */
-    PropertiesConfigLoader (final String path) {
-        super (path);
-        this.mapper = new JavaPropsMapper ();
-        this.mapper.setPropertyNamingStrategy (SNAKE_CASE);
+    PropertiesConfigLoader(final String path) {
+        super(path);
+        this.mapper = new JavaPropsMapper();
+        this.mapper.setPropertyNamingStrategy(SNAKE_CASE);
     }
 }

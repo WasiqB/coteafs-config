@@ -21,9 +21,8 @@ import static java.text.MessageFormat.format;
 
 import java.io.File;
 
+import com.github.wasiqb.coteafs.config.error.ConfigNotLoadedError;
 import com.github.wasiqb.coteafs.config.error.ConfigNotSupportedError;
-import com.github.wasiqb.coteafs.config.error.CoteafsConfigNotLoadedError;
-
 import org.testng.annotations.Test;
 
 /**
@@ -31,20 +30,20 @@ import org.testng.annotations.Test;
  * @since 09-Jun-2017 6:39:43 PM
  */
 public class ConfigLoaderTest {
-    private static void deleteIfExists (final String fileName) {
-        final File config = new File (format ("./src/test/resources/{0}", fileName));
-        config.delete ();
+    private static void deleteIfExists(final String fileName) {
+        final File config = new File(format("./src/test/resources/{0}", fileName));
+        config.delete();
     }
 
     /**
      * @author wasiq.bhamla
      * @since 09-Jun-2017 6:48:05 PM
      */
-    @Test (expectedExceptions = CoteafsConfigNotLoadedError.class)
-    public void testConfigWhenFileIsIncorrect () {
-        settings ().withKey ("coteafs.failed.setting")
-            .withDefault ("test-config-malformed.yaml")
-            .load (ServiceSetting.class);
+    @Test(expectedExceptions = ConfigNotLoadedError.class)
+    public void testConfigWhenFileIsIncorrect() {
+        settings().withKey("coteafs.failed.setting")
+            .withDefault("test-config-malformed.yaml")
+            .load(ServiceSetting.class);
     }
 
     /**
@@ -52,13 +51,13 @@ public class ConfigLoaderTest {
      * @since 06-Oct-2019
      */
     @Test
-    public void testConfigWhenJsonFileNotExsits () {
-        final ServiceSetting setting = settings ().withDefault ("sconfig.json")
-            .load (ServiceSetting.class);
-        assertThat (setting.getApiUrl ()).isEqualTo ("https://localhost");
-        assertThat (setting.getApiPort ()).isEqualTo (3000);
-        assertThat (setting.getApiType ()).isEqualTo ("Rest");
-        deleteIfExists ("sconfig.json");
+    public void testConfigWhenJsonFileNotExsits() {
+        final ServiceSetting setting = settings().withDefault("sconfig.json")
+            .load(ServiceSetting.class);
+        assertThat(setting.getApiUrl()).isEqualTo("https://localhost");
+        assertThat(setting.getApiPort()).isEqualTo(3000);
+        assertThat(setting.getApiType()).isEqualTo("Rest");
+        deleteIfExists("sconfig.json");
     }
 
     /**
@@ -66,13 +65,13 @@ public class ConfigLoaderTest {
      * @since 06-Oct-2019
      */
     @Test
-    public void testConfigWhenPropertiesFileNotExsits () {
-        final ServiceSetting setting = settings ().withDefault ("sconfig.properties")
-            .load (ServiceSetting.class);
-        assertThat (setting.getApiUrl ()).isEqualTo ("https://localhost");
-        assertThat (setting.getApiPort ()).isEqualTo (3000);
-        assertThat (setting.getApiType ()).isEqualTo ("Rest");
-        deleteIfExists ("sconfig.properties");
+    public void testConfigWhenPropertiesFileNotExsits() {
+        final ServiceSetting setting = settings().withDefault("sconfig.properties")
+            .load(ServiceSetting.class);
+        assertThat(setting.getApiUrl()).isEqualTo("https://localhost");
+        assertThat(setting.getApiPort()).isEqualTo(3000);
+        assertThat(setting.getApiType()).isEqualTo("Rest");
+        deleteIfExists("sconfig.properties");
     }
 
     /**
@@ -80,13 +79,13 @@ public class ConfigLoaderTest {
      * @since 06-Oct-2019
      */
     @Test
-    public void testConfigWhenXmlFileNotExsits () {
-        final ServiceSetting setting = settings ().withDefault ("sconfig.xml")
-            .load (ServiceSetting.class);
-        assertThat (setting.getApiUrl ()).isEqualTo ("https://localhost");
-        assertThat (setting.getApiPort ()).isEqualTo (3000);
-        assertThat (setting.getApiType ()).isEqualTo ("Rest");
-        deleteIfExists ("sconfig.xml");
+    public void testConfigWhenXmlFileNotExsits() {
+        final ServiceSetting setting = settings().withDefault("sconfig.xml")
+            .load(ServiceSetting.class);
+        assertThat(setting.getApiUrl()).isEqualTo("https://localhost");
+        assertThat(setting.getApiPort()).isEqualTo(3000);
+        assertThat(setting.getApiType()).isEqualTo("Rest");
+        deleteIfExists("sconfig.xml");
     }
 
     /**
@@ -94,23 +93,23 @@ public class ConfigLoaderTest {
      * @since 09-Jun-2017 6:47:13 PM
      */
     @Test
-    public void testConfigWhenYamlFileNotExsits () {
-        final ServiceSetting setting = settings ().withDefault ("sconfig.yaml")
-            .load (ServiceSetting.class);
-        assertThat (setting.getApiUrl ()).isEqualTo ("https://localhost");
-        assertThat (setting.getApiPort ()).isEqualTo (3000);
-        assertThat (setting.getApiType ()).isEqualTo ("Rest");
-        deleteIfExists ("sconfig.yaml");
+    public void testConfigWhenYamlFileNotExsits() {
+        final ServiceSetting setting = settings().withDefault("sconfig.yaml")
+            .load(ServiceSetting.class);
+        assertThat(setting.getApiUrl()).isEqualTo("https://localhost");
+        assertThat(setting.getApiPort()).isEqualTo(3000);
+        assertThat(setting.getApiType()).isEqualTo("Rest");
+        deleteIfExists("sconfig.yaml");
     }
 
     /**
      * @author Wasiq Bhamla
      * @since 07-Sep-2019
      */
-    @Test (expectedExceptions = ConfigNotSupportedError.class)
-    public void testIncorrectConfigFormat () {
-        settings ().withDefault ("test-config.txt")
-            .load (ServiceSetting.class);
+    @Test(expectedExceptions = ConfigNotSupportedError.class)
+    public void testIncorrectConfigFormat() {
+        settings().withDefault("test-config.txt")
+            .load(ServiceSetting.class);
     }
 
     /**
@@ -118,12 +117,12 @@ public class ConfigLoaderTest {
      * @since 06-Sep-2019
      */
     @Test
-    public void testJsonConfigLoaderWithServiceSettings () {
-        final ServiceSetting setting = settings ().withDefault ("test-config.json")
-            .load (ServiceSetting.class);
-        assertThat (setting.getApiUrl ()).isEqualTo ("http://localhost");
-        assertThat (setting.getApiPort ()).isEqualTo (8080);
-        assertThat (setting.getApiType ()).isEqualTo ("SOAP");
+    public void testJsonConfigLoaderWithServiceSettings() {
+        final ServiceSetting setting = settings().withDefault("test-config.json")
+            .load(ServiceSetting.class);
+        assertThat(setting.getApiUrl()).isEqualTo("http://localhost");
+        assertThat(setting.getApiPort()).isEqualTo(8080);
+        assertThat(setting.getApiType()).isEqualTo("SOAP");
     }
 
     /**
@@ -131,12 +130,12 @@ public class ConfigLoaderTest {
      * @since 07-Sep-2019
      */
     @Test
-    public void testPropertiesConfigLoaderWithServiceSettings () {
-        final ServiceSetting setting = settings ().withDefault ("test-config.properties")
-            .load (ServiceSetting.class);
-        assertThat (setting.getApiUrl ()).isEqualTo ("http://localhost");
-        assertThat (setting.getApiPort ()).isEqualTo (8080);
-        assertThat (setting.getApiType ()).isEqualTo ("SOAP");
+    public void testPropertiesConfigLoaderWithServiceSettings() {
+        final ServiceSetting setting = settings().withDefault("test-config.properties")
+            .load(ServiceSetting.class);
+        assertThat(setting.getApiUrl()).isEqualTo("http://localhost");
+        assertThat(setting.getApiPort()).isEqualTo(8080);
+        assertThat(setting.getApiType()).isEqualTo("SOAP");
     }
 
     /**
@@ -144,12 +143,12 @@ public class ConfigLoaderTest {
      * @since 07-Sep-2019
      */
     @Test
-    public void testXmlConfigLoaderWithServiceSettings () {
-        final ServiceSetting setting = settings ().withDefault ("test-config.xml")
-            .load (ServiceSetting.class);
-        assertThat (setting.getApiUrl ()).isEqualTo ("http://localhost");
-        assertThat (setting.getApiPort ()).isEqualTo (8080);
-        assertThat (setting.getApiType ()).isEqualTo ("SOAP");
+    public void testXmlConfigLoaderWithServiceSettings() {
+        final ServiceSetting setting = settings().withDefault("test-config.xml")
+            .load(ServiceSetting.class);
+        assertThat(setting.getApiUrl()).isEqualTo("http://localhost");
+        assertThat(setting.getApiPort()).isEqualTo(8080);
+        assertThat(setting.getApiType()).isEqualTo("SOAP");
     }
 
     /**
@@ -157,10 +156,13 @@ public class ConfigLoaderTest {
      * @since 09-Jun-2017 6:44:40 PM
      */
     @Test
-    public void testYamlConfigLoaderWithServiceSettings () {
-        final ServiceSetting setting = settings ().load (ServiceSetting.class);
-        assertThat (setting.getApiUrl ()).isEqualTo ("http://localhost");
-        assertThat (setting.getApiPort ()).isEqualTo (8080);
-        assertThat (setting.getApiType ()).isEqualTo ("SOAP");
+    public void testYamlConfigLoaderWithServiceSettings() {
+        final MainSetting setting = settings().load(MainSetting.class);
+        assertThat(setting.getService("s1")
+            .getApiUrl()).isEqualTo("http://localhost");
+        assertThat(setting.getService("s2")
+            .getApiPort()).isEqualTo(8080);
+        assertThat(setting.getService("s3")
+            .getApiType()).isEqualTo("SOAP");
     }
 }

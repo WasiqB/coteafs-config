@@ -26,22 +26,22 @@ import static org.apache.commons.text.StringSubstitutor.replaceSystemProperties;
  */
 public final class StringSubstituter {
     /**
-     * @author Wasiq Bhamla
-     * @since 05-Oct-2019
      * @param value
      * @return string
+     * @author Wasiq Bhamla
+     * @since 05-Oct-2019
      */
-    public static String interpolate (final String value) {
+    public static String interpolate(final String value) {
         String res = value;
-        if (isEmpty (res)) {
+        if (isEmpty(res)) {
             res = EMPTY;
         }
-        if (res.startsWith ("${")) {
-            final String key = res.substring (2, res.length () - 1);
-            final String env = getenv (key);
-            if (isEmpty (env)) {
-                res = replaceSystemProperties (res);
-                if (isEmpty (res)) {
+        if (res.startsWith("${")) {
+            final String key = res.substring(2, res.length() - 1);
+            final String env = getenv(key);
+            if (isEmpty(env)) {
+                res = replaceSystemProperties(res);
+                if (isEmpty(res)) {
                     res = EMPTY;
                 }
             } else {
@@ -51,7 +51,7 @@ public final class StringSubstituter {
         return res;
     }
 
-    private StringSubstituter () {
+    private StringSubstituter() {
         // Util class.
     }
 }

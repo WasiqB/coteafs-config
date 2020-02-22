@@ -1,3 +1,11 @@
-api_url: ${ENV_URL}
-api_port: 8080
-api_type: ${type}
+service: &default_service
+  api_url: ${ENV_URL}
+  api_port: 8080
+  api_type: ${type}
+services:
+  s1:
+    <<: *default_service
+  s2:
+    <<: *default_service
+  s3:
+    <<: *default_service

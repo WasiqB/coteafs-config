@@ -29,79 +29,82 @@ import com.github.wasiqb.coteafs.config.error.ConfigNotSupportedError;
  */
 public class ConfigLoader {
     /**
+     * @return config
      * @author Wasiq Bhamla
      * @since 06-Sep-2019
-     * @return config
      */
-    public static ConfigLoader settings () {
-        return new ConfigLoader ();
+    public static ConfigLoader settings() {
+        return new ConfigLoader();
     }
 
     private final String dir;
-    private String       key;
-    private String       value;
+    private       String key;
+    private       String value;
 
-    private ConfigLoader () {
-        this.dir = format ("{0}/src/test/resources/", getProperty ("user.dir"));
+    private ConfigLoader() {
+        this.dir = format("{0}/src/test/resources/", getProperty("user.dir"));
         this.key = "coteafs.config";
         this.value = "test-config.yaml";
     }
 
     /**
-     * @author Wasiq Bhamla
-     * @since 06-Sep-2019
      * @param <T> any object
      * @param cls class
      * @return config object
+     * @author Wasiq Bhamla
+     * @since 06-Sep-2019
      */
-    public <T> T load (final Class<T> cls) {
-        final IConfigSource config = getConfig ();
-        return config.load (cls);
+    public <T> T load(final Class<T> cls) {
+        final IConfigSource config = getConfig();
+        return config.load(cls);
     }
 
     /**
-     * @author Wasiq Bhamla
-     * @since 06-Sep-2019
      * @param defaultValue default value
      * @return current instance
+     * @author Wasiq Bhamla
+     * @since 06-Sep-2019
      */
-    public ConfigLoader withDefault (final String defaultValue) {
+    public ConfigLoader withDefault(final String defaultValue) {
         this.value = defaultValue;
         return this;
     }
 
     /**
-     * @author Wasiq Bhamla
-     * @since 06-Sep-2019
      * @param configKey config key
      * @return current instance
+     * @author Wasiq Bhamla
+     * @since 06-Sep-2019
      */
-    public ConfigLoader withKey (final String configKey) {
+    public ConfigLoader withKey(final String configKey) {
         this.key = configKey;
         return this;
     }
 
-    private IConfigSource getConfig () {
-        final String path = getConfigPath ();
-        final String ext = path.substring (path.lastIndexOf ('.') + 1);
-        switch (ext.toLowerCase ()) {
+    private IConfigSource getConfig() {
+        final String path = getConfigPath();
+        final String ext = path.substring(path.lastIndexOf('.') + 1);
+        switch (ext.toLowerCase()) {
             case "yaml":
             case "yml":
-                return new YamlConfigLoader (path);
+                return new YamlConfigLoader(path);
             case "json":
-                return new JsonConfigLoader (path);
+                return new JsonConfigLoader(path);
             case "properties":
-                return new PropertiesConfigLoader (path);
+                return new PropertiesConfigLoader(path);
             case "xml":
-                return new XmlConfigLoader (path);
+                return new XmlConfigLoader(path);
             default:
-                fail (ConfigNotSupportedError.class, format ("This config file format [{0}] is not supported.", ext));
+                fail(ConfigNotSupportedError.class,
+                    format("This config file format [{0}] is not supported.", ext));
         }
         return null;
     }
 
-    private String getConfigPath () {
-        final String envPath = getenv (this.key);
-        return isEmpty (envPath) ? getProperty (this.key, format ("{0}{1}", this.dir, this.value)) : envPath;
+    private String getConfigPath() {
+        final String envPath = getenv(this.key);
+        return isEmpty(envPath)
+            ? getProperty(this.key, format("{0}{1}", this.dir, this.value))
+            : envPath;
     }
 }

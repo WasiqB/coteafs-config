@@ -23,21 +23,21 @@ public class ConfigNotSupportedError extends CoteafsConfigsError {
     private static final long serialVersionUID = 3662738056510529696L;
 
     /**
+     * @param message
      * @author Wasiq Bhamla
      * @since 30-Jun-2019
-     * @param message
      */
-    public ConfigNotSupportedError (final String message) {
-        super (message);
+    public ConfigNotSupportedError(final String message) {
+        super(message);
     }
 
     /**
-     * @author Wasiq Bhamla
-     * @since 30-Jun-2019
      * @param message
      * @param cause
+     * @author Wasiq Bhamla
+     * @since 30-Jun-2019
      */
-    public ConfigNotSupportedError (final String message, final Throwable cause) {
-        super (message, cause);
+    public ConfigNotSupportedError(final String message, final Throwable cause) {
+        super(message, cause);
     }
 }

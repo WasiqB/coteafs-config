@@ -19,25 +19,25 @@ package com.github.wasiqb.coteafs.config.error;
  * @author Wasiq Bhamla
  * @since 08-Oct-2019
  */
-public class CoteafsConfigNotSavedError extends CoteafsConfigsError {
+public class ConfigNotSavedError extends CoteafsConfigsError {
     private static final long serialVersionUID = 5056940714682265826L;
 
     /**
+     * @param message
      * @author Wasiq Bhamla
      * @since 08-Oct-2019
-     * @param message
      */
-    public CoteafsConfigNotSavedError (final String message) {
-        super (message);
+    public ConfigNotSavedError(final String message) {
+        super(message);
     }
 
     /**
-     * @author Wasiq Bhamla
-     * @since 08-Oct-2019
      * @param message
      * @param cause
+     * @author Wasiq Bhamla
+     * @since 08-Oct-2019
      */
-    public CoteafsConfigNotSavedError (final String message, final Throwable cause) {
-        super (message, cause);
+    public ConfigNotSavedError(final String message, final Throwable cause) {
+        super(message, cause);
     }
 }
