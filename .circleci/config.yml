@@ -20,7 +20,7 @@ jobs:
             - repo-{{ .Branch }}-{{ .Revision }}
       - run:
           name: Resolve Dependencies
-          command: mvn clean dependency:resolve
+          command: mvn dependency:resolve
       - save_cache:
           paths:
             - ~/.m2
@@ -34,7 +34,7 @@ jobs:
           key: repo-dependency-{{ .Branch }}-{{ .Revision }}
       - run:
           name: Build project
-          command: mvn compile
+          command: mvn install -DskipTests
       - save_cache:
           key: repo-target-{{ .Branch }}-{{ .Revision }}
           paths:
@@ -42,6 +42,8 @@ jobs:
   test:
     <<: *default
     steps:
+      - attach_workspace:
+          at: .
       - restore_cache:
           key: repo-{{ .Branch }}-{{ .Revision }}
       - restore_cache:
@@ -50,7 +52,7 @@ jobs:
           key: repo-target-{{ .Branch }}-{{ .Revision }}
       - run:
           name: Run Tests with Sonar Coverage
-          command: ENV_URL=http://localhost mvn org.jacoco:jacoco-maven-plugin:prepare-agent install -Dtype=SOAP -Pcoverage-per-test
+          command: ENV_URL=http://localhost mvn org.jacoco:jacoco-maven-plugin:prepare-agent install -Pcoverage-per-test -Dtype=SOAP
       - save_cache:
           key: repo-reports-{{ .Branch }}-{{ .Revision }}
           paths:
@@ -73,9 +75,9 @@ jobs:
 filters: &all_branches
   branches:
     only:
+      - develop
       - master
       - release
-      - develop
       - /issue-.*/
 
 workflows:
@@ -93,10 +95,10 @@ workflows:
           requires:
             - resolve_dependencies
       - test:
-          filters: *all_branches
           requires:
             - build
-      - code_analysis:
           filters: *all_branches
+      - code_analysis:
           requires:
             - test
+          filters: *all_branches
