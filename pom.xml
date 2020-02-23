@@ -13,7 +13,7 @@
     </parent>
 
     <properties>
-        <coteafs.error.version>1.12.0</coteafs.error.version>
+        <coteafs.error.version>1.12.1</coteafs.error.version>
         <jackson.version>2.10.2</jackson.version>
         <commons.text.version>1.8</commons.text.version>
         <snake.version>2.1</snake.version>
