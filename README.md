@@ -150,7 +150,7 @@ You can use the following dependency into your `pom.xml` to use this library.
   <dependency>
     <groupId>com.github.wasiqb.coteafs</groupId>
     <artifactId>configs</artifactId>
-    <version>2.1.0</version>
+    <version>2.2.0</version>
   </dependency>
 ```
 
