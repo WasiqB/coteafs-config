@@ -9,18 +9,16 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <gpg.homedir>${env.GPG_PATH}</gpg.homedir>
                 <gpg.executable>gpg</gpg.executable>
-                <gpg.keyname>${env.GPG_KEY}</gpg.keyname>
-                <gpg.passphrase>${env.GPG_PASS}</gpg.passphrase>
+                <gpg.passphrase>${env.GPG_PASSPHRASE}</gpg.passphrase>
             </properties>
         </profile>
     </profiles>
     <servers>
         <server>
             <id>ossrh</id>
-            <username>${env.OSSRH_USER}</username>
-            <password>${env.OSSRH_PASS}</password>
+            <username>${env.SERVER_OSSRH_USERNAME}</username>
+            <password>${env.SERVER_OSSRH_PASSWORD}</password>
         </server>
     </servers>
 </settings>
