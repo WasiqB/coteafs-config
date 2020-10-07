@@ -15,78 +15,20 @@
  */
 package com.github.wasiqb.coteafs.config;
 
-import com.github.wasiqb.coteafs.config.util.BasePojo;
+import lombok.Builder;
+import lombok.Data;
 
 /**
  * @author wasiq.bhamla
  * @since 09-Jun-2017 6:40:36 PM
  */
-public class ServiceSetting extends BasePojo {
-    private int    apiPort;
-    private String apiType;
-    private String apiUrl;
-
-    /**
-     * @author Wasiq Bhamla
-     * @since 05-Oct-2019
-     */
-    public ServiceSetting() {
-        this.apiPort = 3000;
-        this.apiType = "Rest";
-        this.apiUrl = "https://localhost";
-    }
-
-    /**
-     * @param apiPort the apiPort to set
-     * @author wasiq.bhamla
-     * @since 27-Jun-2017 7:15:29 PM
-     */
-    public void setApiPort(final int apiPort) {
-        this.apiPort = apiPort;
-    }
-
-    /**
-     * @param apiType the apiType to set
-     * @author wasiq.bhamla
-     * @since 27-Jun-2017 7:15:29 PM
-     */
-    public void setApiType(final String apiType) {
-        this.apiType = apiType;
-    }
-
-    /**
-     * @param apiUrl the apiUrl to set
-     * @author wasiq.bhamla
-     * @since 27-Jun-2017 7:15:29 PM
-     */
-    public void setApiUrl(final String apiUrl) {
-        this.apiUrl = apiUrl;
-    }
-
-    /**
-     * @return the apiPort
-     * @author wasiq.bhamla
-     * @since 27-Jun-2017 7:15:29 PM
-     */
-    int getApiPort() {
-        return this.apiPort;
-    }
-
-    /**
-     * @return the apiType
-     * @author wasiq.bhamla
-     * @since 27-Jun-2017 7:15:29 PM
-     */
-    String getApiType() {
-        return this.apiType;
-    }
-
-    /**
-     * @return the apiUrl
-     * @author wasiq.bhamla
-     * @since 27-Jun-2017 7:15:29 PM
-     */
-    String getApiUrl() {
-        return this.apiUrl;
-    }
+@Data
+@Builder
+public class ServiceSetting {
+    @Builder.Default
+    private int    apiPort = 3000;
+    @Builder.Default
+    private String apiType = "Rest";
+    @Builder.Default
+    private String apiUrl  = "https://localhost";
 }

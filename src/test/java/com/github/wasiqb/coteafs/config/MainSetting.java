@@ -15,75 +15,32 @@
  */
 package com.github.wasiqb.coteafs.config;
 
-import java.util.HashMap;
 import java.util.Map;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author Wasiq Bhamla
  * @since 05-Jan-2020
  */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class MainSetting {
     private ServiceSetting              service;
     private Map<String, ServiceSetting> services;
 
-    public MainSetting() {
-        this.services = new HashMap<>();
-    }
-
     /**
-     * @param service
-     * @param services
-     * @author Wasiq Bhamla
-     * @since 05-Jan-2020
-     */
-    public MainSetting(final ServiceSetting service, final Map<String, ServiceSetting> services) {
-        this.service = service;
-        this.services = services;
-    }
-
-    /**
-     * @return the service
-     * @author Wasiq Bhamla
-     * @since 05-Jan-2020
-     */
-    public ServiceSetting getService() {
-        return this.service;
-    }
-
-    /**
-     * @param name
+     * @param name name of service
+     *
      * @return service
+     *
      * @author Wasiq Bhamla
      * @since 05-Jan-2020
      */
-    public ServiceSetting getService(final String name) {
-        return this.services.get(name);
-    }
-
-    /**
-     * @return the services
-     * @author Wasiq Bhamla
-     * @since 05-Jan-2020
-     */
-    public Map<String, ServiceSetting> getServices() {
-        return this.services;
-    }
-
-    /**
-     * @param service the service to set
-     * @author Wasiq Bhamla
-     * @since 05-Jan-2020
-     */
-    public void setService(final ServiceSetting service) {
-        this.service = service;
-    }
-
-    /**
-     * @param services the services to set
-     * @author Wasiq Bhamla
-     * @since 05-Jan-2020
-     */
-    public void setServices(final Map<String, ServiceSetting> services) {
-        this.services = services;
+    public ServiceSetting getService (final String name) {
+        return this.services.get (name);
     }
 }
